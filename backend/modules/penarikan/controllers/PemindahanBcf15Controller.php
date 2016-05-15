@@ -35,7 +35,7 @@ class PemindahanBcf15Controller extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new Bcf15DetailSearch();
+        $searchModel = new Bcf15DetailSearch();     
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

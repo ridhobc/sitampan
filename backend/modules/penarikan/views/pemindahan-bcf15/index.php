@@ -6,20 +6,20 @@ use kartik\dynagrid;
 use kartik\export\ExportMenu;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
-
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuratmasukArsipSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $year = date('Y');
-$this->title = 'Surat Pengantar';
+$this->title = 'Pemindahan BCF 1.5';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suratmasuk-arsip-index">
 
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
     <div class="container-fluid">
     </div>
 
@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => [
             'id' => 'modal',
             'tabindex' => false // important for Select2 to work properly
-        ],
+            ],
     ]);
     echo "<div id='modalContent'></div>";
     Modal::end();
-    
+
     Modal::begin([
         'header' => '<h4>Buat Surat Pengantar</h4>',
         'id' => 'myModal',
@@ -54,67 +54,58 @@ $this->params['breadcrumbs'][] = $this->title;
                 return GridView::ROW_COLLAPSED;
             },
             'detail' => function ($model, $key, $index, $column) {
-                $searchModel = new \backend\modules\bcf15\models\Bcf15DetailSearch();
-                $searchModel->bcf15_id = $model->id;
+                $searchModel = new backend\modules\bcf15\models\Bcf15DetailContSearch();
+                $searchModel->bcf15_detail_id = $model->id;
                 $dataProvider = $searchModel->search(YII::$app->request->queryParams);
 
-                return YII::$app->controller->renderPartial('_detail-bcf15', [
+                return YII::$app->controller->renderPartial('_container_detail', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
-                ]);
+                        ]);
             },
         ],
-        
-        'no_sp',
-        'tgl_sp',
-        'bcf15no',
-        'tahun',
-        'nama_kirim_sp',
-        'tgl_kirim_sp',
         [
-              'header' => 'Penandatangan SP ',  
-//            'attribute' => 'pejabat_sp',
+            'attribute' => 'bcf15_id',
+            'width' => '310px',
+            'value' => function ($model, $key, $index, $widget) {
+                return $model->bcf15->bcf15no;
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ArrayHelper::map(backend\modules\penarikan\models\Bcf15::find()->orderBy('id')->asArray()->all(), 'id', 'bcf15no'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => 'Cari BCF 1.5'],
+            'group' => TRUE, // enable grouping
+        ],
+        'bcf15pos',
+        'bc11no',
+        'bc11tgl',
+        'bc11pos',
+        'bc11subpos',
+       'consignee',
+       [
+            'header' => 'TPS',
 //            'filter' => $pejabat,
             'value' => function ($data) {
-                return $data->penandatangan->namapejabat;
+                return $data->tps->namatps;
             }
         ],
-        
         [
-            'header' => 'Terima BCF 1.5',
-//            'attribute' => 'status_bcf15',
-//            'filter' => $status,
+            'header' => 'TPP Tujuan',
+//            'filter' => $pejabat,
             'value' => function ($data) {
-                return $data->statusBcf15->nmstatus;
+                return $data->tpp->namatpp;
             }
         ],
-        'nama_terima_sp',
-        'tgl_terima_sp',
+        'tgl_timbun',
         [
+            'header'=>'Konsep',
             'format' => 'raw',
-            'header' => 'Terima BCF1.5',
             'value' => function ($data) {
-                if (\Yii::$app->user->identity->role == 'admin') {
-                    if ($data->status_bcf15 == '3' || $data->status_bcf15 == '4' ){
-                    if ($data->status_bcf15 == '3') {
-                        return Html::a("<i class='fa fa-flag fa-2x text-danger'></i>", ['terimabcf15', 'id' => $data->id], [
-                                    'class' => '',
-                                    'data' => [
-
-                                        'confirm' => 'Pastikan Hardcopy BCF 1.5 ini telah Anda Terima?',
-                                        'method' => 'post',
-                                    ],
-                        ]);
-                    } elseif($data->status_bcf15 == '4') {
-                        return Html::a("<i class='fa fa-calendar-check-o fa-2x text-success'></i>");
-                    } 
-                        
-                }
-                }
+                return Html::a("<i class='fa fa-edit fa-2x'></i>", ['skep-penetapan-bcf15/update', 'id' => $data->id]);
             },
-        ],
-        
-        
+        ],            
         
     ];
     $fullExportMenu = ExportMenu::widget([
@@ -129,9 +120,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'btn btn-danger',
                     'itemsBefore' => [
                         '<li class="dropdown-header">Export All Data</li>',
-                    ],
                 ],
-    ]);
+                    ],
+            ]);
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -154,11 +145,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => 'btn btn-info',
                     'title' => Yii::t('kvgrid', 'Refresh')
                 ])
-            ],
+        ],
         ],
         'export' => [
             'messages' => 'allowPopups',
-        ],
+            ],
     ]);
     ?>
 

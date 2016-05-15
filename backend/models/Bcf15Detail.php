@@ -100,7 +100,7 @@ class Bcf15Detail extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
+     /**
      * @return \yii\db\ActiveQuery
      */
     public function getBcf15()
@@ -131,7 +131,9 @@ class Bcf15Detail extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Bcf15DetailCont::className(), ['bcf15_detail_id' => 'id']);
     }
-    
+   
+
+  
     public function getUserCreated() {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }

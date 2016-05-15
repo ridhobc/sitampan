@@ -67,6 +67,19 @@ class Bcf15 extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getSkepPenetapanBcf15()
+    {
+        return $this->hasOne(SkepPenetapanBcf15::className(), ['id' => 'skep_penetapan_bcf15_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatusBcf15()
+    {
+        return $this->hasOne(StatusBcf15::className(), ['id' => 'status_bcf15']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -74,11 +87,17 @@ class Bcf15 extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Penandatangan::className(), ['id' => 'penandatangan_id']);
     }
-     
-    public function getStatusBcf15()
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBcf15Details()
     {
-        return $this->hasOne(StatusBcf15::className(), ['id' => 'status_bcf15']);
+        return $this->hasMany(Bcf15Detail::className(), ['bcf15_id' => 'id']);
     }
+    
+   
+   
     
     public function getUserCreated() {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
@@ -88,16 +107,8 @@ class Bcf15 extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
     
-    public function getSkepPenetapanBcf15() {
-        return $this->hasOne(SkepPenetapanBcf15::className(), ['id' => 'skep_penetapan_bcf15_id']);
-    }
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBcf15Details()
-    {
-        return $this->hasMany(Bcf15Detail::className(), ['bcf15_id' => 'id']);
-    }
+    
+   
     
     public function behaviors() {
         return [

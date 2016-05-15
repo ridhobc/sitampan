@@ -47,6 +47,7 @@ class Bcf15DetailSearch extends Bcf15Detail
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+     'sort'=> ['defaultOrder' => ['bcf15_id'=>SORT_ASC]]
         ]);
 
         $this->load($params);
