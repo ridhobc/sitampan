@@ -18,10 +18,10 @@ use yii\bootstrap\Modal;
 <div class="box box-default">
     <div class="box-header with-border">
 
-        <?= Html::a('<i class="fa fa-home "></i> Home', ['bcf15/penetapan'], ['class' => 'btn btn-primary']) ?>        
-        <?= Html::a('<i class="fa fa-file-word-o "></i> Konsep', ['skep-penetapan-bcf15/export-skep-word', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>        
-        <?= Html::a('<i class="fa fa-file-pdf-o "></i> Skep PDF', ['skep-penetapan-bcf15/export-skep-pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>        
-        <?= Html::a('<i class="fa fa-file-pdf-o "></i> Lamp Skep PDF', ['skep-penetapan-bcf15/export-skep-lamp-pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>        
+        <?= Html::a('<i class="fa fa-home "></i> Home', ['surat-pemindahan/index'], ['class' => 'btn btn-primary']) ?>        
+        <?= Html::a('<i class="fa fa-file-word-o "></i> Konsep', ['surat-pemindahan/export-surat-word', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>        
+        
+        <?= Html::a('<i class="fa fa-file-pdf-o "></i> Lamp Skep PDF', ['surat-pemindahan/export-surat-lamp-pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>        
     </div>
     <div class="box-body">
 
@@ -30,18 +30,23 @@ use yii\bootstrap\Modal;
             <div class="col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <i class="fa fa-print"></i> Isikan Penandatangan Skep
+                        <i class="fa fa-print"></i> Isikan Detail Surat Pemindahan
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body payment-form">
                         <div class="row">
                             <div class="col-sm-6">
-                                <?= $form->field($model, 'skep_no')->textInput(['maxlength' => 64]) ?>
+                                <span class="text text-warning badge badge-warning">Surat Pemindahan</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <?= $form->field($model, 'no_surat')->textInput(['maxlength' => 64]) ?>
                             </div>
                             <div class="col-sm-6">
                                 <?=
-                                $form->field($model, 'skep_tgl')->widget(\kartik\widgets\DatePicker::className(), [
-                                    'options' => ['placeholder' => 'Tanggal Skep..'],
+                                $form->field($model, 'tgl_surat')->widget(\kartik\widgets\DatePicker::className(), [
+                                    'options' => ['placeholder' => 'Tanggal Surat..'],
                                     'language' => 'id',
                                     'pluginOptions' => [
                                         'format' => 'yyyy-mm-dd',
@@ -51,7 +56,6 @@ use yii\bootstrap\Modal;
                                     ]
                                 ])
                                 ?>
-
                             </div>
                         </div>
                         <div class="row">
@@ -60,7 +64,7 @@ use yii\bootstrap\Modal;
                                 //= $form->field($model, 'training_id')->textInput()
                                 $jabatan = \yii\helpers\ArrayHelper::map(
                                                 \backend\models\Penandatangan::find()->where(['is_status' => '1', 'category' => '5'])->all(), 'id', 'namapejabat', 'jabatan');
-                                echo $form->field($model, 'kepala_kantor')->widget(\kartik\widgets\Select2::classname(), [
+                                echo $form->field($model, 'surat_penandatangan_kakantor')->widget(\kartik\widgets\Select2::classname(), [
                                     'data' => $jabatan,
                                     'options' => [
                                         'placeholder' => 'Pilih Penandatangan...',
@@ -71,13 +75,93 @@ use yii\bootstrap\Modal;
                                 ]);
                                 ?>
                             </div>
-                        </div>                        
+
+                        </div>
                         <div class="row">
                             <div class="col-sm-2">
                                 <?= Html::a('<i class="fa fa-male "></i> Kepala Kantor', ['penandatangan/createkakantor'], ['class' => 'btn btn-primary']) ?>
                             </div>
                         </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span class="text text-warning badge badge-warning">Nota Dinas</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <?= $form->field($model, 'nd_dari_kasipab')->textArea(['maxlength' => 255]) ?>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <?= $form->field($model, 'nd_daftar_sp')->textArea(['maxlength' => 255]) ?>
+                            </div>
+                            <div class="col-sm-6">
+                                <?= $form->field($model, 'nd_daftar_bcf15')->textArea(['maxlength' => 255]) ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <?php
+                                $jabatan = \yii\helpers\ArrayHelper::map(
+                                                \backend\models\Penandatangan::find()->where(['is_status' => '1', 'category' => '2'])->all(), 'id', 'namapejabat', 'jabatan');
+                                echo $form->field($model, 'nd_penandatangan_kasipab')->widget(\kartik\widgets\Select2::classname(), [
+                                    'data' => $jabatan,
+                                    'options' => [
+                                        'placeholder' => 'Pilih Penandatangan...',
+                                    ],
+                                    'pluginOptions' => [
+                                        'allowClear' => true,
+                                        ],
+                                ]);
+                                ?>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <?= Html::a('<i class="fa fa-male "></i> Kepala Seksi Penarikan', ['penandatangan/createseksitarik'], ['class' => 'btn btn-primary']) ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-6">
+                            <?php
+//= $form->field($model, 'training_id')->textInput()
+                            $tpp = \yii\helpers\ArrayHelper::map(
+                                            \backend\modules\setting\models\Tpp::find()->all(), 'id', 'namatpp');
+                            
+                            echo $form->field($model, 'tpp_id')->widget(\kartik\widgets\Select2::classname(), [
+                                'data' => $tpp,
+                                'options' => [
+                                    'placeholder' => 'Pilih TPP...',
+                                ],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
+                            ?>
+                        </div>
+                        <div class="col-sm-6">
+                            <?php
+//= $form->field($model, 'training_id')->textInput()
+                            $tps = \yii\helpers\ArrayHelper::map(
+                                            backend\modules\setting\models\Tps::find()->all(), 'id', 'namatps');
+                            echo $form->field($model, 'tps_id')->widget(\kartik\widgets\Select2::classname(), [
+                                'data' => $tps,
+                                'options' => [
+                                    'placeholder' => 'Pilih TPS...',
+                                ],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
+                            ?>
+                        </div>
                     </div>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="form-group">
@@ -99,6 +183,8 @@ use yii\bootstrap\Modal;
                 Modal::end();
                 $tps = \yii\helpers\ArrayHelper::map(
                                 backend\modules\setting\models\Tps::find()->all(), 'id', 'namatps');
+                $tpp = \yii\helpers\ArrayHelper::map(
+                                backend\modules\setting\models\Tpp::find()->all(), 'id', 'namatpp');
                 $gridColumns = [
                     [
                         'class' => 'kartik\grid\ExpandRowColumn',
@@ -117,15 +203,17 @@ use yii\bootstrap\Modal;
                         },
                     ],
                     'bcf15no',
+                    'bcf15tgl',
                     'tahun',
                     'no_sp',
                     'tgl_sp',
+                    
                     [
                         'format' => 'raw',
-                        'header' => 'Detail Skep',
+                        'header' => 'Hapus',
                         'value' => function ($data) {
                             if (\Yii::$app->user->identity->role == 'admin') {
-                                if ($data->status_bcf15 == '4') {
+                                if ($data->status_bcf15 == '5') {
                                     $request = Yii::$app->request;
                                     return Html::a("<i class='fa fa-plus-circle fa-2x text-danger text-center'></i>", ['bcf15/tbhdetailkep', 'idsk' => $request->get('id'), 'id' => $data->id], [
                                                 'class' => '',
@@ -134,13 +222,13 @@ use yii\bootstrap\Modal;
                                                     'method' => 'post',
                                                     ],
                                             ]);
-                                } elseif ($data->status_bcf15 == '5') {
+                                } elseif ($data->status_bcf15 == '6') {
                                     $request = Yii::$app->request;
-                                    return Html::a("<i class='fa fa-calendar-check-o  fa-2x text-success text-center '></i>", ['bcf15/btldetailkep', 'idsk' => $request->get('id'), 'id' => $data->id], [
+                                    return Html::a("<i class='fa fa-close  fa-2x text-success text-center '></i>", ['surat-pemindahan/btllampsrt', 'idsk' => $request->get('id'), 'id' => $data->id], [
                                                 'class' => '',
                                                 'data' => [
 
-                                                    'confirm' => 'Hapus bcf15 nomor : ' . $data->bcf15no . ' dari Skep',
+                                                    'confirm' => 'Hapus bcf15 nomor : ' . $data->bcf15no . ' dari Lampiran',
                                                     'method' => 'post',
                                                     ],
                                             ]);
@@ -172,7 +260,7 @@ use yii\bootstrap\Modal;
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
                     'panel' => [
                         'type' => GridView::TYPE_PRIMARY,
-                        'heading' => 'Detail Surat Keputusan',
+                        'heading' => 'Lampiran Surat Pemindahan BCF 1.5',
                     ],
 // your toolbar can include the additional full export menu
                     'toolbar' => [

@@ -6,14 +6,13 @@ use kartik\dynagrid;
 use kartik\export\ExportMenu;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SuratmasukArsipSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $year = date('Y');
-$this->title = 'Pemindahan BCF 1.5';
+$this->title = 'Surat Pemindahan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suratmasuk-arsip-index">
@@ -25,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     Modal::begin([
-        'header' => '<h4>BCF 1.5</h4>',
+        'header' => '<h4>Surat</h4>',
         'id' => 'modal',
         'size' => 'modal-lg',
         'options' => [
@@ -43,10 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     echo "<div id='modalContent'></div>";
     Modal::end();
-    $pejabat = \yii\helpers\ArrayHelper::map(
-                    \backend\models\Penandatangan::find()->all(), 'id', 'jabatan', 'namapejabat');
-    $status = \yii\helpers\ArrayHelper::map(
-                    \backend\models\StatusBcf15::find()->all(), 'id', 'nmstatus');
+
     $gridColumns = [
         [
             'class' => 'kartik\grid\ExpandRowColumn',
@@ -54,78 +50,50 @@ $this->params['breadcrumbs'][] = $this->title;
                 return GridView::ROW_COLLAPSED;
             },
             'detail' => function ($model, $key, $index, $column) {
-                $searchModel = new backend\modules\bcf15\models\Bcf15DetailContSearch();
-                $searchModel->bcf15_detail_id = $model->id;
+                $searchModel = new \backend\modules\penarikan\models\Bcf15Search(['skep_penetapan_bcf15_id' => $model->id]);
+                $searchModel->skep_penetapan_bcf15_id = $model->id;
                 $dataProvider = $searchModel->search(YII::$app->request->queryParams);
 
-                return YII::$app->controller->renderPartial('_container_detail', [
+                return YII::$app->controller->renderPartial('_detail-penetapan', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
                         ]);
             },
         ],
+        'no_surat',
+        'tgl_surat',
         [
-            'attribute' => 'bcf15_id',
-            'width' => '310px',
-            'value' => function ($model, $key, $index, $widget) {
-                return $model->bcf15->bcf15no;
-            },
-            'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ArrayHelper::map(backend\modules\penarikan\models\Bcf15::find()->orderBy('id')->asArray()->all(), 'id', 'bcf15no'),
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => 'Cari BCF 1.5'],
-            'group' => TRUE, // enable grouping
-        ],
-        'bcf15pos',
-        'bc11no',
-        'bc11tgl',
-        'bc11pos',
-        'bc11subpos',
-        'consignee',
-        [
-            'header' => 'TPS',
-//            'filter' => $pejabat,
+            'header' => 'Total BCF1.5',
+            'format' => 'raw',
             'value' => function ($data) {
-                return $data->tps->namatps;
+                $count = backend\models\Bcf15::find()
+                        ->where([
+                            'bcf15_surat_pemindahan_id' => $data->id,
+                        ])
+                        ->count();
+                $bcf15 = $count;
+                if (!empty($count)) {
+                    return $bcf15;
+                } else {
+                    return "-";
+                }
             }
         ],
-        'tgl_timbun',
+        'nd_daftar_bcf15',
+        'status_surat',
+        [
+            'header' => 'Kepala Kantor(ttd)',
+//            'filter' => $pejabat,
+            'value' => function ($data) {
+                return $data->penandatangan->namapejabat;
+            }
+        ],
         [
             'format' => 'raw',
-            'header' => 'TPP Tujuan',
             'value' => function ($data) {
-
-                if ($data->tpp_id == '1') {
-                    $request = Yii::$app->request;
-                    return Html::a("<i class='fa fa-close fa-2x'></i>", ['pemindahan-bcf15/edittpp', 'id' => $data->id], [
-                                'class' => '',
-                                'data' => [
-
-                                    'method' => 'post',
-                                    ],
-                            ]);
-                } else {
-                    $request = Yii::$app->request;
-                    return Html::a($data->tpp->namatpp, ['pemindahan-bcf15/edittpp', 'id' => $data->id], [
-                                'class' => '',
-                                'data' => [
-
-                                    'confirm' => 'Merubah TPP : ' . $data->tpp->namatpp . ' ?',
-                                    'method' => 'post',
-                                    ],
-                            ]);
-                }
+                return Html::a("<i class='fa fa-edit fa-2x'></i>", ['surat-pemindahan/update', 'id' => $data->id]);
             },
             ],
-//        [
-//            'header'=>'Konsep',
-//            'format' => 'raw',
-//            'value' => function ($data) {
-//                return Html::a("<i class='fa fa-edit fa-2x'></i>", ['pemindahan-bcf15/update', 'id' => $data->id]);
-//            },
-//        ],            
     ];
     $fullExportMenu = ExportMenu::widget([
                 'dataProvider' => $dataProvider,
@@ -150,15 +118,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
         'panel' => [
             'type' => GridView::TYPE_PRIMARY,
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> BCF 1.5</h3>',
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> Surat</h3>',
         ],
 // your toolbar can include the additional full export menu
         'toolbar' => [
 
             $fullExportMenu,
             ['content' =>
-//                Html::button('<i class="glyphicon glyphicon-plus"></i>  Create BCF 1.5', ['value' => Url::to('index.php?r=bcf15/bcf15/skep_create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
-//                                Html::button('<i class="glyphicon glyphicon-plus"></i>  Buat Logbook', ['value' => Url::to('index.php?r=logbook/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
+//                Html::button('<i class="glyphicon glyphicon-plus"></i>  Create Skep Penetapan', ['value' => Url::to('index.php?r=penarikan/skep-penetapan-bcf15/skep_create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
                 Html::a('<i class="glyphicon glyphicon-plus"></i>  Create Surat Pemindahan', ['surat-pemindahan/create'], ['class' => 'btn btn-success']) . ' ' .
                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], [
                     'data-pjax' => 0,

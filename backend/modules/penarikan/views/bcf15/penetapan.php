@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $year = date('Y');
-$this->title = 'Surat Pengantar';
+$this->title = "Skep Penetapan";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suratmasuk-arsip-index">
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return GridView::ROW_COLLAPSED;
             },
             'detail' => function ($model, $key, $index, $column) {
-                $searchModel = new \backend\modules\penarikan\models\Bcf15Search(['skep_penetapan_bcf15_id'=>$model->id]);
+                $searchModel = new \backend\modules\penarikan\models\Bcf15Search(['skep_penetapan_bcf15_id' => $model->id]);
                 $searchModel->skep_penetapan_bcf15_id = $model->id;
                 $dataProvider = $searchModel->search(YII::$app->request->queryParams);
 
@@ -65,7 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'skep_no',
         'skep_tgl',
-       
         [
             'header' => 'Kepala Kantor(ttd)',
 //            'filter' => $pejabat,
@@ -73,12 +72,74 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $data->penandatangan->namapejabat;
             }
         ],
+        'status_skep',
         [
+            'header' => 'Total BCF1.5',
             'format' => 'raw',
             'value' => function ($data) {
-                return Html::a("<i class='fa fa-edit fa-2x'></i>", ['skep-penetapan-bcf15/update', 'id' => $data->id]);
+                $count = backend\models\Bcf15::find()
+                        ->where([
+                            'skep_penetapan_bcf15_id' => $data->id,
+                        ])
+                        ->count();
+                $bcf15 = $count;
+                if (!empty($count)) {
+                    return  $bcf15;
+                } else {
+                    return "-";
+                }
+            }
+        ],
+        [
+            'format' => 'raw',
+            'header' => 'arsip',
+            'value' => function ($data) {
+                if (\Yii::$app->user->identity->role == 'admin') {
+                    if ($data->status_skep == 'konsep') {
+
+                        $request = Yii::$app->request;
+                        return Html::a("<i class='fa fa-close fa-2x text-danger text-center'></i>", ['skep-penetapan-bcf15/tbharchive',  'id' => $data->id], [
+                                    'class' => '',
+                                    'data' => [
+                                        'confirm' => 'Arsipkan skep nomor : ' . $data->skep_no . '',
+                                        'method' => 'post',
+                                        ],
+                                ]);
+                    } elseif ($data->status_skep == 'arsip') {
+                        $request = Yii::$app->request;
+                        return Html::a("<i class='fa fa-check fa-2x text-success text-center '></i>", ['skep-penetapan-bcf15/btlarchive',  'id' => $data->id], [
+                                    'class' => '',
+                                    'data' => [
+
+                                        'confirm' => 'Batal Arsip skep nomor : ' . $data->skep_no . '',
+                                        'method' => 'post',
+                                        ],
+                                ]);
+                    }
+                }
             },
         ],
+        [
+            'header' => 'Edit',
+            'format' => 'raw',
+            'value' => function ($data) {
+                 if ($data->status_skep == 'konsep') {
+                return Html::a("<i class='fa fa-edit fa-2x'></i>", ['skep-penetapan-bcf15/update', 'id' => $data->id]);
+                 }else{
+                   
+                 }
+            },
+        ],
+        
+        [
+            'header' => 'Delete',
+            'format' => 'raw',
+            'value' => function ($data) {        
+                if($data->status_skep=='konsep'){
+                    return Html::a("<i class='fa fa-trash fa-2x'></i>", ['skep-penetapan-bcf15/delete', 'id' => $data->id],['data-method'=>'post']);             
+                }
+            },
+            ],
     ];
     $fullExportMenu = ExportMenu::widget([
                 'dataProvider' => $dataProvider,
@@ -111,7 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $fullExportMenu,
             ['content' =>
 //                Html::button('<i class="glyphicon glyphicon-plus"></i>  Create Skep Penetapan', ['value' => Url::to('index.php?r=penarikan/skep-penetapan-bcf15/skep_create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
-                Html::a('<i class="glyphicon glyphicon-plus"></i>  Create Skep Penetapan', ['skep-penetapan-bcf15/create'], ['class' => 'btn btn-success']). ' ' .           
+                Html::a('<i class="glyphicon glyphicon-plus"></i>  Create Skep Penetapan', ['skep-penetapan-bcf15/create'], ['class' => 'btn btn-success']) . ' ' .
                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], [
                     'data-pjax' => 0,
                     'class' => 'btn btn-info',
@@ -128,8 +189,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
-    <?php
-    $this->registerJs("
+<?php
+$this->registerJs("
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var modal = $(this)
@@ -143,4 +204,4 @@ $this->params['breadcrumbs'][] = $this->title;
             });
         })
 ");
-    ?>
+?>

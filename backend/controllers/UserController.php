@@ -201,7 +201,7 @@ class UserController extends Controller {
 //    }
     public function actionProfil($id) {
         $model = $this->findModel($id);
-        $searchModel = new IkuUserSearch([
+        $searchModel = new \backend\models\AuthAssignmentSearch([
             'user_id' => $id, // Tambahkan ini
         ]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

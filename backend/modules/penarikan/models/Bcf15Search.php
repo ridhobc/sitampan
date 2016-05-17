@@ -18,7 +18,7 @@ class Bcf15Search extends Bcf15
     public function rules()
     {
         return [
-            [['id', 'penandatangan_id', 'sp', 'pejabat_sp', 'created_at', 'updated_at', 'created_by', 'updated_by', 'status_bcf15','skep_penetapan_bcf15_id'], 'integer'],
+            [['id', 'penandatangan_id', 'sp', 'pejabat_sp', 'created_at', 'updated_at', 'created_by', 'updated_by', 'status_bcf15','skep_penetapan_bcf15_id','bcf15_surat_pemindahan_id'], 'integer'],
             [['bcf15no', 'kd_bcf15', 'bcf15tgl', 'no_sp', 'tgl_sp', 'tahun'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class Bcf15Search extends Bcf15
             'penandatangan_id' => $this->penandatangan_id,
             'sp' => $this->sp,
             'skep_penetapan_bcf15_id' => $this->skep_penetapan_bcf15_id,
+            'bcf15_surat_pemindahan_id' => $this->bcf15_surat_pemindahan_id,
             'tgl_sp' => $this->tgl_sp,
             'pejabat_sp' => $this->pejabat_sp,
             'created_at' => $this->created_at,

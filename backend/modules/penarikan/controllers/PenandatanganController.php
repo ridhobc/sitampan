@@ -87,6 +87,20 @@ class PenandatanganController extends Controller
             ]);
         }
     }
+    
+    public function actionCreateseksitarik()
+    {
+        $model = new Penandatangan();
+        if ($model->load(Yii::$app->request->post())) {            
+            $model->category='2';
+            $model->save();         
+            return $this->redirect(['pemindahan-bcf15/create']);
+        } else {
+            return $this->render('createseksitarik', [
+                'model' => $model,
+            ]);
+        }
+    }
 
     /**
      * Updates an existing Penandatangan model.

@@ -73,8 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 '5' => 'Budha',
                                 '6' => 'Lainnya'
                             ];
-                            $disposisi = \yii\helpers\ArrayHelper::map(
-                                            \backend\models\Disposisi::find()->all(), 'id', 'nama');
+                            
                             ?>
                             <?=
                             DetailView::widget([
@@ -111,30 +110,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'address:ntext',
                                     'phone',
                                     'email:email',
-                                    [
-                                        'attribute' => 'religion_id',
-                                        'format' => 'raw',
-                                        'value' => $agama[$model->religion_id],
-                                        'type' => DetailView::INPUT_SELECT2,
-                                        'widgetOptions' => [
-                                            'data' => $agama,
-                                            'options' => ['placeholder' => 'Select ...'],
-                                            'pluginOptions' => ['allowClear' => true]
-                                        ],
-                                        'inputContainer' => ['class' => 'col-sm-6']
-                                    ],
-                                    [
-                                        'attribute' => 'iddisposisi',
-                                        'format' => 'raw',
-                                        'value' => $disposisi[$model->iddisposisi],
-                                        'type' => DetailView::INPUT_SELECT2,
-                                        'widgetOptions' => [
-                                            'data' => $disposisi,
-                                            'options' => ['placeholder' => 'Select ...'],
-                                            'pluginOptions' => ['allowClear' => true]
-                                        ],
-                                        'inputContainer' => ['class' => 'col-sm-6']
-                                    ],
+                                    
+                                    
                                 ]
                             ]);
                             ?>
@@ -142,11 +119,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="col-md-8">
                             <span>
-                                <h5>IKU</h5>
+                                <h5>Hak Akses</h5>
                             </span>
                             <?php
                             Modal::begin([
-                                'header' => '<h4>Tambah IKU</h4>',
+                                'header' => '<h4>Hak Akses </h4>',
                                 'id' => 'modal',
                                 'size' => 'modal-lg',
                             ]);
@@ -155,22 +132,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             $gridColumns = [
                                 ['class' => 'yii\grid\SerialColumn'],
-                                'kode_iku',
-                                [
-                                    'attribute' => 'iku_id',
-                                    'value' => function ($data) {
-                                        return $data->iku->nama_iku;
-                                    }
-                                ],
-                                'definis_iku',
-                                'tahun',
-                                [
-                                    'format' => 'raw',
-                                    'header' => 'Actions',
-                                    'value' => function ($data) {
-                                        return Html::a(Html::encode("Delete"), ['iku-user/view', 'id' => $data->id]);
-                                    },
-                                        ],
+                                'item_name',
+                               
+                                
 //                ['class' => 'yii\grid\ActionColumn']
                                     ];
                                     $fullExportMenu = ExportMenu::widget([
@@ -196,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
                                         'panel' => [
                                             'type' => GridView::TYPE_PRIMARY,
-                                            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> IKU </h3>',
+                                            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  </h3>',
                                         ],
 // your toolbar can include the additional full export menu
                                         'toolbar' => [

@@ -123,23 +123,7 @@ use kartik\builder\Form;
             ?>
 
         </div>
-        <div class="col-md-3">
-
-            <?php
-            $disposisi = \yii\helpers\ArrayHelper::map(
-                            \backend\models\Disposisi::find()->all(), 'id', 'nama');
-
-            echo $form->field($model, 'iddisposisi')->widget(\kartik\widgets\Select2::className(), [
-                'data' => $disposisi,
-                'options' => [
-                    'placeholder' => 'Tentukan Id Disposisi',
-                ],
-                'pluginOptions' => [
-                    'allowClear' => true,
-                ],
-            ]);
-            ?>
-        </div>
+        
     </div> 
 
     <div class="form-group">

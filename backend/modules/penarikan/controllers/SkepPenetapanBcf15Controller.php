@@ -90,7 +90,7 @@ class SkepPenetapanBcf15Controller extends Controller
     {
         $model = $this->findModel($id);
         //detail yang sudah konek idnya
-        $searchModeldet = new \backend\modules\penarikan\models\Bcf15Search(['status_bcf15'=>5, 'skep_penetapan_bcf15_id'=>$model->id]);
+        $searchModeldet = new \backend\modules\penarikan\models\Bcf15Search(['skep_penetapan_bcf15_id'=>$model->id]);
         $dataProviderdet = $searchModeldet->search(Yii::$app->request->queryParams);
         
         //detail yang belum konek mau ditambahkan
@@ -109,7 +109,21 @@ class SkepPenetapanBcf15Controller extends Controller
         }
     }
     
-   
+    public function actionTbharchive($id) {
+        $model = SkepPenetapanBcf15::findOne($id);       
+        $model->status_skep = arsip;       
+        $model->save();
+        \Yii::$app->getSession()->setFlash('success', 'Skep nomor '. $model->skep_no .' telah diarsipkan!');
+        return $this->redirect(['bcf15/penetapan']);
+    }
+    
+    public function actionBtlarchive($id) {
+        $model = SkepPenetapanBcf15::findOne($id);        
+        $model->status_skep = konsep;       
+        $model->save();
+         \Yii::$app->getSession()->setFlash('warning', 'Skep nomor '. $model->skep_no .' berstatus konsep');
+        return $this->redirect(['bcf15/penetapan']);
+    }
 
     /**
      * Deletes an existing SkepPenetapanBcf15 model.
@@ -117,11 +131,9 @@ class SkepPenetapanBcf15Controller extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id)    {
         $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return $this->redirect(['bcf15/penetapan']);
     }
     
     /**

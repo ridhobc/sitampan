@@ -40,7 +40,20 @@ class Bcf15Controller extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * Lists all Bcf15 models.
+     * @return mixed
+     */
+    public function actionDashboard() {
+//        $searchModel = new Bcf15Search(['status_bcf15' => '1']);
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('dashboard', [
+//                    'searchModel' => $searchModel,
+//                    'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Lists all BCF15 baru.
      * @return mixed
@@ -311,7 +324,7 @@ class Bcf15Controller extends Controller {
         $model->nama_kirim_sp =  \Yii::$app->user->identity->name;  
         $model->tgl_kirim_sp = date('Y-m-d H:i:s');
         $model->save();
-        \Yii::$app->getSession()->setFlash('danger', 'BCF 1.5 nomor '. $model->bcf15no .' telah dikirim!');
+        \Yii::$app->getSession()->setFlash('danger', 'SP Nomor '. $model->no_sp .' telah dikirim!');
         return $this->redirect(['surat-pengantar']);
     }
 
@@ -319,7 +332,7 @@ class Bcf15Controller extends Controller {
         $model = Bcf15::findOne($id);
         $model->status_bcf15 = '2';        
         $model->save();
-        \Yii::$app->getSession()->setFlash('success', 'BCF 1.5 nomor '. $model->bcf15no .' BATAL dikirim!!');
+        \Yii::$app->getSession()->setFlash('success', 'SP Nomor  '. $model->no_sp .' BATAL dikirim!!');
         return $this->redirect(['surat-pengantar']);
     }
     /**

@@ -38,7 +38,7 @@ $this->registerCss(".disp-count{cursor:default;} .disp-count:hover {background-c
             <div class="col-xs-6 col-lg-8">
                 <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-area-chart "></i> <?php echo Yii::t('app', 'Grafik Surat Masuk'); ?></h3>
+                    <h3 class="box-title"><i class="fa fa-area-chart "></i> <?php echo Yii::t('app', 'Grafik '); ?></h3>
                     <div class="box-tools pull-right">
                         <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     </div>
@@ -67,7 +67,7 @@ $this->registerCss(".disp-count{cursor:default;} .disp-count:hover {background-c
             <div class="col-md-12">
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-list-ul"></i> <?php echo Yii::t('app', '10 Surat Masuk Terbaru'); ?></h3>
+                        <h3 class="box-title"><i class="fa fa-list-ul"></i> <?php echo Yii::t('app', ''); ?></h3>
                         <div class="box-tools pull-right">
                             <button class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             <button class="btn btn-info btn-sm" title="Remove" data-toggle="tooltip" data-widget="remove"><i class="fa fa-times"></i></button>

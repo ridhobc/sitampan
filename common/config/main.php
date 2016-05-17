@@ -4,11 +4,11 @@ return [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
-        ]
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//			'suffix' => '.aspx',
-//        ],	
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+			'suffix' => '.aspx',
+        ],	
     ],
 ];

@@ -40,7 +40,7 @@ class Bcf15 extends \yii\db\ActiveRecord
             [['bcf15tgl','created_at','updated_at','tahun','tgl_sp','tgl_kirim_sp','tgl_terima_sp'], 'safe'],
 //              [['bcf15tgl'], 'date','format' => 'D m Y'],
             [['penandatangan_id'], 'integer'],
-            [['created_by', 'updated_by','status_bcf15','pejabat_sp','skep_penetapan_bcf15_id'], 'integer'],
+            [['created_by', 'updated_by','status_bcf15','pejabat_sp','skep_penetapan_bcf15_id','bcf15_surat_pemindahan_id'], 'integer'],
             [['bcf15no','kd_bcf15','no_sp'], 'string', 'max' => 100],
             [['kepada_sp','nama_kirim_sp','nama_terima_sp'], 'string', 'max' => 250],
            
@@ -71,7 +71,11 @@ class Bcf15 extends \yii\db\ActiveRecord
     {
         return $this->hasOne(SkepPenetapanBcf15::className(), ['id' => 'skep_penetapan_bcf15_id']);
     }
-
+    
+    public function getBcf15SuratPemindahan()
+    {
+        return $this->hasOne(Bcf15SuratPemindahan::className(), ['id' => 'bcf15_surat_pemindahan_id']);
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

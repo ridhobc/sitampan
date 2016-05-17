@@ -21,7 +21,7 @@ $fieldOptions2 = [
 ?>
 <style type="text/css">
     html,body { 
-        background: url('../web/images/background1.jpg') no-repeat center center fixed; 
+        background: url('../../web/images/background1.jpg') no-repeat center center fixed; 
         -webkit-background-size: 100% 100%;
         -moz-background-size: 100% 100%;
         -o-background-size: 100% 100%;
