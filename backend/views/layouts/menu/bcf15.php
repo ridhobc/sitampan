@@ -4,7 +4,7 @@
 <?php $bcfbaru = \backend\models\Bcf15::find()->where(['status_bcf15' => ['1']])->count(); ?>
 <?php $spbaru = \backend\models\Bcf15::find()->where(['status_bcf15' => ['2']])->count(); ?>
 <li class="treeview active">
-    <?= Html::a('<i class="fa fa-folder-open"></i> <span>' . ('Penetapan') . '</span> <i class="fa fa-angle-left pull-right"></i>', ['/default/index']) ?>
+    <?= Html::a('<i class="fa fa-ship"></i> <span>' . ('Penetapan') . '</span> <i class="fa fa-angle-left pull-right"></i>', ['/default/index']) ?>
     <ul class="treeview-menu">
         <li>
             <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Dashboard'), ['/bcf15/bcf15/dashboard']) ?>

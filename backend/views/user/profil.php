@@ -25,20 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     User Profil dan IKU</h3>
             </div>
             <div class="panel-body">
-                <div class="container">
-                    <div class="pull-right">
-                        <?=
-                        Html::a(
-                                'Logbook', ['/iku-user'], ['data-method' => 'post', 'class' => 'btn btn-info btn-flat '])
-                        ?>
-                    </div>
-                    <div class="pull-left">
-                        <?=
-                        Html::a(
-                                'Change Password', ['change_password'], ['data-method' => 'post', 'class' => 'btn btn-warning btn-flat '])
-                        ?>
-                    </div>
-                </div>
+               
                 <div class="row">
 
                     <div class="col-12">
@@ -98,15 +85,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'nip',
                                     'born',
                                     //'birthday',
-//                                    [
-//                                        'attribute' => 'birthday',
-//                                        'format' => 'date',
-//                                        'type' => DetailView::INPUT_DATE,
-//                                        'widgetOptions' => [
-//                                            'pluginOptions' => ['format' => 'yyyy-mm-dd']
-//                                        ],
-//                                        'inputContainer' => ['class' => 'col-sm-6']
-//                                    ],
+                                    [
+                                        'attribute' => 'birthday',
+                                        'format' => 'date',
+                                        'type' => DetailView::INPUT_DATE,
+                                        'widgetOptions' => [
+                                            'pluginOptions' => ['format' => 'yyyy-mm-dd']
+                                        ],
+                                        'inputContainer' => ['class' => 'col-sm-12']
+                                    ],
                                     'address:ntext',
                                     'phone',
                                     'email:email',
@@ -118,9 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="col-md-8">
-                            <span>
-                                <h5>Hak Akses</h5>
-                            </span>
+                            
                             <?php
                             Modal::begin([
                                 'header' => '<h4>Hak Akses </h4>',
@@ -160,14 +145,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
                                         'panel' => [
                                             'type' => GridView::TYPE_PRIMARY,
-                                            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  </h3>',
+                                            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> Group Akses </h3>',
                                         ],
 // your toolbar can include the additional full export menu
                                         'toolbar' => [
 
                                             $fullExportMenu,
                                             ['content' =>
-                                                Html::a('<i class="glyphicon glyphicon-plus"></i> Buat IKU', ['iku-user/iku-create-user', 'id' => $model->id], ['class' => 'btn btn-success']) . ' ' .
+                                                Html::a('<i class="fa fa-key"></i> Ubah Password', ['user/change_password'], ['class' => 'btn btn-success']) . ' ' .
 //                                                Html::button('<i class="glyphicon glyphicon-plus"></i> IKU Baru', ['value' => Url::to('index.php?r=iku-user/iku-create-user'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
                                                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], [
                                                     'data-pjax' => 0,

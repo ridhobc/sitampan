@@ -62,8 +62,8 @@ echo GridView::widget([
 
         $fullExportMenu,
         ['content' =>
-                                    Html::button('<i class="glyphicon glyphicon-plus"></i>  Create TPS', ['value' => Url::to('index.php?r=setting/tps/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
-//            Html::a('<i class="glyphicon glyphicon-plus"></i> TPS', ['tps/create'], ['class' => 'btn btn-success']) . ' ' .
+//                                    Html::button('<i class="glyphicon glyphicon-plus"></i>  Create TPS', ['value' => Url::to('index.php?r=setting/tps/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
+            Html::a('<i class="glyphicon glyphicon-plus"></i> TPS', ['tps/create'], ['class' => 'btn btn-success']) . ' ' .
             Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], [
                 'data-pjax' => 0,
                 'class' => 'btn btn-info',

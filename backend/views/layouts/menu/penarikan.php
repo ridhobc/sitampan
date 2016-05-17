@@ -8,7 +8,7 @@ $tpp = \backend\models\Bcf15Detail::find()->where(['tpp_id' => ['1']])->count();
 $srtpmdh = \backend\models\Bcf15SuratPemindahan::find()->where(['status_surat' => ['konsep']])->count();
 ?>
 <li class="treeview active">
-    <?= Html::a('<i class="fa fa-folder-open"></i> <span>' . ('Penarikan') . '</span> <i class="fa fa-angle-left pull-right"></i>', ['/default/index']) ?>
+    <?= Html::a('<i class="fa fa-truck"></i> <span>' . ('Penarikan') . '</span> <i class="fa fa-angle-left pull-right"></i>', ['/default/index']) ?>
     <ul class="treeview-menu">
         <li>		
             <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Surat Pengantar <span class="label label-warning"> ' . ($bcfbaru) . ' </span> '), ['/penarikan/bcf15/index']) ?>

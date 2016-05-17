@@ -60,6 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
             },
         ],
+        'no_nd_kasipab',
+        'tgl_nd_kasipab',
         'no_surat',
         'tgl_surat',
         [

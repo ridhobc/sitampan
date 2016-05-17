@@ -20,7 +20,7 @@ use yii\bootstrap\Modal;
 
         <?= Html::a('<i class="fa fa-home "></i> Home', ['bcf15/penetapan'], ['class' => 'btn btn-primary']) ?>        
         <?= Html::a('<i class="fa fa-file-word-o "></i> Konsep', ['skep-penetapan-bcf15/export-skep-word', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>        
-        <?= Html::a('<i class="fa fa-file-pdf-o "></i> Skep PDF', ['skep-penetapan-bcf15/export-skep-pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>        
+        <?php // Html::a('<i class="fa fa-file-pdf-o "></i> Skep PDF', ['skep-penetapan-bcf15/export-skep-pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>        
         <?= Html::a('<i class="fa fa-file-pdf-o "></i> Lamp Skep PDF', ['skep-penetapan-bcf15/export-skep-lamp-pdf', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>        
     </div>
     <div class="box-body">
@@ -77,6 +77,57 @@ use yii\bootstrap\Modal;
                                 <?= Html::a('<i class="fa fa-male "></i> Kepala Kantor', ['penandatangan/createkakantor'], ['class' => 'btn btn-primary']) ?>
                             </div>
                         </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span class="text text-warning badge badge-warning">Nota Dinas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <?= $form->field($model, 'daftar_sp')->textArea(['maxlength' => 255]) ?>
+                            </div>
+                            <div class="col-sm-6">
+                                <?= $form->field($model, 'daftar_bcf15')->textArea(['maxlength' => 255]) ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <?php
+                                $jabatan = \yii\helpers\ArrayHelper::map(
+                                                \backend\models\Penandatangan::find()->where(['is_status' => '1', 'category' => '2'])->all(), 'id', 'namapejabat', 'jabatan');
+                                echo $form->field($model, 'kepala_seksi')->widget(\kartik\widgets\Select2::classname(), [
+                                    'data' => $jabatan,
+                                    'options' => [
+                                        'placeholder' => 'Pilih Penandatangan...',
+                                    ],
+                                    'pluginOptions' => [
+                                        'allowClear' => true,
+                                        ],
+                                ]);
+                                ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                        
+                        <div class="col-sm-6">
+                            <?php
+//= $form->field($model, 'training_id')->textInput()
+                            $tps = \yii\helpers\ArrayHelper::map(
+                                            backend\modules\setting\models\Tps::find()->all(), 'id', 'namatps');
+                            echo $form->field($model, 'tps_id')->widget(\kartik\widgets\Select2::classname(), [
+                                'data' => $tps,
+                                'options' => [
+                                    'placeholder' => 'Pilih TPS...',
+                                ],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
+                            ?>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="row">

@@ -143,12 +143,47 @@ class SkepPenetapanBcf15Controller extends Controller
      */
     public function actionExportSkepWord($id)
     {
-        $searchModelset = new \backend\modules\setting\models\IdentitasKantorSearch();
-        $dataProviderset = $searchModelset->search(Yii::$app->request->queryParams);
+         function bulan($bln) {
+            $bulan = $bln;
+            Switch ($bulan) {
+                case 1 : $bulan = "Januari";
+                    Break;
+                case 2 : $bulan = "Februari";
+                    Break;
+                case 3 : $bulan = "Maret";
+                    Break;
+                case 4 : $bulan = "April";
+                    Break;
+                case 5 : $bulan = "Mei";
+                    Break;
+                case 6 : $bulan = "Juni";
+                    Break;
+                case 7 : $bulan = "Juli";
+                    Break;
+                case 8 : $bulan = "Agustus";
+                    Break;
+                case 9 : $bulan = "September";
+                    Break;
+                case 10 : $bulan = "Oktober";
+                    Break;
+                case 11 : $bulan = "November";
+                    Break;
+                case 12 : $bulan = "Desember";
+                    Break;
+            }
+            return $bulan;
+        }
+        $identitaskantor = \backend\modules\setting\models\IdentitasKantor::findOne(1);
         
-        $searchModel = new SkepPenetapanBcf15Search(['id'=>$id]);
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $surat = SkepPenetapanBcf15::findOne($id);
+        $tgl = explode("-", $surat->skep_tgl);
+        $tahun = $tgl[0];
+        $bulan = bulan(date($tgl[1]));
+        $suratttd = \backend\models\Penandatangan::findOne(['id' => $surat->kepala_kantor]);
+         $tps = \backend\modules\setting\models\Tps::findOne(['id' => $surat->tps_id]);
+       
+         $kasittd = \backend\models\Penandatangan::findOne(['id' => $surat->kepala_seksi]);
+          
         $searchModelBcf = new \backend\modules\penarikan\models\Bcf15Search(['skep_penetapan_bcf15_id'=>$id]);
         $dataProviderBcf = $searchModelBcf->search(Yii::$app->request->queryParams);
         
@@ -156,52 +191,33 @@ class SkepPenetapanBcf15Controller extends Controller
         $template = \Yii::getAlias('@backend/modules/penarikan/views/skep-penetapan-bcf15').'/_skep_export.docx';
         
         $OpenTBS->LoadTemplate($template);
+        $OpenTBS->VarRef['kementerian'] = $identitaskantor->kementerian;
+        $OpenTBS->VarRef['eseloni'] = $identitaskantor->eseloni;
+        $OpenTBS->VarRef['kanwil'] = $identitaskantor->kanwil;
+        $OpenTBS->VarRef['kppbc'] = $identitaskantor->kppbc;
+        $OpenTBS->VarRef['kppbckec'] = ucwords(strtolower($identitaskantor->kppbc));
+        $OpenTBS->VarRef['alamat1'] = $identitaskantor->alamat1;
+        $OpenTBS->VarRef['alamat2'] = $identitaskantor->alamat2;
         
-        $dataset=[];
-        $no=1;
-        foreach($dataProviderset->getModels() as $setting){
-            $dataset[]=[
-                'no'=>$no++,
-                'kementerian'=>$setting->kementerian,
-                'eseloni'=>$setting->eseloni,
-                'kanwil'=>$setting->kanwil,
-                'kppbc'=>$setting->kppbc,
-                'alamat1'=>$setting->alamat1,
-                'alamat2'=>$setting->alamat2,
-            ];
-        }
-        $OpenTBS->MergeBlock('dataset',$dataset);
+        $OpenTBS->VarRef['skep_no'] = $surat->skep_no;
+        $OpenTBS->VarRef['skep_tgl'] = $surat->skep_tgl;
+        $OpenTBS->VarRef['bcf15'] = $surat->daftar_bcf15;
+        $OpenTBS->VarRef['sp'] = $surat->daftar_sp;
+        $OpenTBS->VarRef['bulan'] = $bulan;
+        $OpenTBS->VarRef['tahun'] = $tahun;
         
-        $data=[];
-        $no=1;
-        foreach($dataProvider->getModels() as $skep){
-            $data[]=[
-                'no'=>$no++,
-                'skep_no'=>$skep->skep_no,
-                'skep_tgl'=>$skep->skep_tgl,
-                'skep_kota'=>$skep->skep_kota,
-                'kepala_kantor'=>$skep->kepala_kantor,
-                
-            ];
-        }
+        $OpenTBS->VarRef['jabatan'] = $suratttd->jabatan;
+        $OpenTBS->VarRef['namapejabat'] = $suratttd->namapejabat;
+        $OpenTBS->VarRef['nippejabat'] = $suratttd->nippejabat;
         
-        $OpenTBS->MergeBlock('data',$data);
+        $OpenTBS->VarRef['jabatanseksi'] = $kasittd->jabatan;
+        $OpenTBS->VarRef['namapejabatseksi'] = $kasittd->namapejabat;
+        $OpenTBS->VarRef['nippejabatseksi'] = $kasittd->nippejabat;
+        
+        $OpenTBS->VarRef['namatps'] = $tps->namatps;
+        $OpenTBS->VarRef['alamattps'] = $tps->alamattps;
         
         
-        $databcf=[];
-        $no=1;
-        foreach($dataProviderBcf->getModels() as $bcf15){
-            $databcf[]=[
-                'no'=>$no++,
-                'bcf15no'=>$bcf15->bcf15no,
-                'bcf15tgl'=>$bcf15->bcf15tgl,
-                'no_sp'=>$bcf15->no_sp,
-                'tgl_sp'=>$bcf15->tgl_sp,
-                
-            ];
-        }
-        
-        $OpenTBS->MergeBlock('databcf',$databcf);
         $OpenTBS->Show(OPENTBS_DOWNLOAD,'_skep_export.docx');
         exit;
         

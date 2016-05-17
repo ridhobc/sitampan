@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="user-update">
 <?php $form = ActiveForm::begin(); ?>
-    <h1><?= Html::encode($this->title) ?></h1>
+   
     <div class="col-md-12 text-center">
         <?= Html::img($model->getPhoto($model->photo), ['alt' => 'No Image', 'class' => 'img-circle edusec-img-disp']); ?>
         <div class="photo-edit">
@@ -145,23 +145,7 @@ $this->params['breadcrumbs'][] = 'Update';
             ?>
 
         </div>
-        <div class="col-md-3">
-
-            <?php
-            $disposisi = \yii\helpers\ArrayHelper::map(
-                            \backend\models\Disposisi::find()->all(), 'id', 'nama');
-
-            echo $form->field($model, 'iddisposisi')->widget(\kartik\widgets\Select2::className(), [
-                'data' => $disposisi,
-                'options' => [
-                    'placeholder' => 'Tentukan Id Disposisi',
-                ],
-                'pluginOptions' => [
-                    'allowClear' => true,
-                ],
-            ]);
-            ?>
-        </div>
+        
     </div> 
 
     <div class="form-group">
