@@ -68,6 +68,14 @@ $this->registerJs($js);
                 <div class="panel-body payment-form">
                     <div class="row">
                         <div class="col-sm-6">
+                            <?= $form->field($modelBcf15Detail, 'bcf15pos')->widget(\yii\widgets\MaskedInput::classname(), ['mask' => '99']) ?>
+                        </div>
+                        <div class="col-sm-6">
+                            <?= $form->field($modelBcf15Detail, 'total_cont')->textInput(array('placeholder' => 'exp: 10 x 20"'),['maxlength' => true])?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
 
                             <?= $form->field($modelBcf15Detail, 'bc11no')->widget(\yii\widgets\MaskedInput::classname(), ['mask' => '999999']) ?>
                         </div>

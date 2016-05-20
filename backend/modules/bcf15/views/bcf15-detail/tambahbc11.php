@@ -70,7 +70,9 @@ $this->registerJs($js);
                         <div class="col-sm-6">
                             <?= $form->field($modelBcf15Detail, 'bcf15pos')->widget(\yii\widgets\MaskedInput::classname(), ['mask' => '99']) ?>
                         </div>
-                        
+                        <div class="col-sm-6">
+                            <?= $form->field($modelBcf15Detail, 'total_cont')->textInput(array('placeholder' => 'exp: 10 x 20"'),['maxlength' => true])?>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -104,7 +106,7 @@ $this->registerJs($js);
                     </div>
                     <div class="row">                
                         <div class="col-sm-6">
-                            <?= $form->field($modelBcf15Detail, 'nobl')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'nobl')->textInput(array('placeholder' => 'No BL atau AWB'),['maxlength' => true]) ?>
                         </div>
                         <div class="col-sm-6">
                             <?=
@@ -125,7 +127,7 @@ $this->registerJs($js);
                     <div class="row">
 
                         <div class="col-sm-6">
-                            <?= $form->field($modelBcf15Detail, 'nama_sarkut')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'nama_sarkut')->textInput(array('placeholder' => 'Nama Kapal Pengangkut'),['maxlength' => true]) ?>
                         </div>
                         <div class="col-sm-6">
                             <?=
@@ -146,34 +148,34 @@ $this->registerJs($js);
                     </div>
                     <div class="row">                
                         <div class="col-sm-4">
-                            <?= $form->field($modelBcf15Detail, 'jumlah_brg')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'jumlah_brg')->textInput(array('placeholder' => 'Jumlah Barang'),['maxlength' => true]) ?>
                         </div>
                         <div class="col-sm-4">
-                            <?= $form->field($modelBcf15Detail, 'satuan_brg')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'satuan_brg')->textInput(array('placeholder' => 'Satuan Barang'),['maxlength' => true]) ?>
                         </div>
                         <div class="col-sm-4">
-                            <?= $form->field($modelBcf15Detail, 'berat_brg')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'berat_brg')->textInput(array('placeholder' => 'Berat Bruto Barang'),['maxlength' => true]) ?>
                         </div>
                     </div>
                     <div class="row">  
                         
 
                         <div class="col-md-12">
-                            <?= $form->field($modelBcf15Detail, 'uraian_brg')->textarea(['rows' => 3]) ?>
+                            <?= $form->field($modelBcf15Detail, 'uraian_brg')->textarea(array('placeholder' => 'Uraian Barang'),['rows' => 3]) ?>
                         </div>
 
                     </div>
                     <div class="row">                
                         <div class="col-sm-12">
-                            <?= $form->field($modelBcf15Detail, 'consignee')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'consignee')->textInput(array('placeholder' => 'Nama Importir/Penerima Barang'),['maxlength' => true]) ?>
                         </div>
                          </div> 
                     <div class="row">  
                         <div class="col-sm-8">
-                            <?= $form->field($modelBcf15Detail, 'alamat_consignee')->textArea(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'alamat_consignee')->textArea(array('placeholder' => 'Alamat Importir/penerima Barang'),['maxlength' => true]) ?>
                         </div>
                         <div class="col-sm-4">
-                            <?= $form->field($modelBcf15Detail, 'kota_consignee')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($modelBcf15Detail, 'kota_consignee')->textInput(array('placeholder' => 'Kota Importir'),['maxlength' => true]) ?>
                         </div>
                     </div>
                     

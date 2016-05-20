@@ -141,8 +141,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             $fullExportMenu,
             ['content' =>
-                Html::button('<i class="glyphicon glyphicon-plus"></i>  Create BCF 1.5', ['value' => Url::to('index.php?r=bcf15/bcf15/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
-//                                Html::button('<i class="glyphicon glyphicon-plus"></i>  Buat Logbook', ['value' => Url::to('index.php?r=logbook/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
+//                Html::button('<i class="glyphicon glyphicon-plus"></i>  Create BCF 1.5', ['value' => Url::to('index.php?r=create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
+                    Html::a('<i class="glyphicon glyphicon-plus"></i>  Create BCF 1.5', ['bcf15/create'], ['class' => 'btn btn-success']) . ' ' .
                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], [
                     'data-pjax' => 0,
                     'class' => 'btn btn-info',

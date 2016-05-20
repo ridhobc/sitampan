@@ -105,11 +105,19 @@ class SuratPemindahanController extends Controller {
     }
 
     public function actionTbhlampsrt($id, $idsk) {
+        
         $model = \backend\models\Bcf15::findOne($id);
         $model->bcf15_surat_pemindahan_id = $idsk;
-        $model->status_bcf15 = 6;
-
+        $model->status_bcf15 = 6;       
         $model->save();
+        
+        $modelbcfdet= \backend\models\Bcf15Detail::findOne(['bcf15_id'=>$id]);
+        $modelsrt= Bcf15SuratPemindahan::findOne($idsk);
+        $modelsrt->tpp_id = $modelbcfdet->tpp_id;
+        $modelsrt->tps_id = $modelbcfdet->tps_id;
+        $modelsrt->nd_daftar_bcf15=$model->bcf15no.' tanggal '.$model->bcf15tgl.', '.$modelsrt->nd_daftar_bcf15;
+        $modelsrt->nd_daftar_sp=$model->no_sp.' tanggal '.$model->tgl_sp.', '.$modelsrt->nd_daftar_sp;
+        $modelsrt->save();
         \Yii::$app->getSession()->setFlash('success', 'BCF 1.5 nomor ' . $model->bcf15no . ' telah ditambahkan ke Lampiran!');
         return $this->redirect(['surat-pemindahan/update', 'id' => $idsk]);
     }

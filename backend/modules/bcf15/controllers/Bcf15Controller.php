@@ -169,7 +169,7 @@ class Bcf15Controller extends Controller {
                 return $this->redirect(['bcf15-detail/tambahbc11', 'id' => $model->id]);
             }
         } else {
-            return $this->renderAjax('create', [
+            return $this->render('create', [
                         'model' => $model,
             ]);
         }

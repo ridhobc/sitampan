@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 if (\Yii::$app->user->identity->role == 'admin') {                   
                     if ($data->status_bcf15 == '4') {
                         $request = Yii::$app->request;
-                        return Html::a("<i class='fa fa-plus-circle fa-2x text-danger text-center'></i>", ['bcf15/tbhdetailkep', 'idsk' =>  $request->get('id') , 'id' => $data->id], [
+                        return Html::a("<i class='fa fa-plus-circle fa-2x text-info text-center'></i>", ['bcf15/tbhdetailkep', 'idsk' =>  $request->get('id') , 'id' => $data->id], [
                                     'class' => '',
                                     'data' => [
                                         'confirm' => 'Tambahkan bcf15 nomor : '.$data->bcf15no.' Ke Skep',

@@ -13,6 +13,8 @@ use Yii;
  * @property string $keterangan
  * @property integer $jenis_pk
  * @property integer $ukuran
+ * @property string $segelmanifest
+ * @property string $segelfisik
  *
  * @property Bcf15Detail $bcf15Detail
  * @property TypeCont $jenisPk
@@ -34,10 +36,12 @@ class Bcf15DetailCont extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'nomor_pk', 'jenis_pk', 'ukuran'], 'required'],
+           [[ 'nomor_pk', 'jenis_pk', 'ukuran'], 'required'],
             [['bcf15_detail_id', 'jenis_pk', 'ukuran'], 'integer'],
             [['keterangan'], 'string'],
-            [['nomor_pk'], 'string', 'max' => 45]
+            [['nomor_pk'], 'string', 'max' => 45],
+            [['segelmanifest', 'segelfisik'], 'string', 'max' => 150],
+            
         ];
     }
 
@@ -49,10 +53,12 @@ class Bcf15DetailCont extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'bcf15_detail_id' => 'Bcf15 Detail ID',
-            'nomor_pk' => 'Nomor Pk',
-            'keterangan' => 'Keterangan',
-            'jenis_pk' => 'Jenis Pk',
-            'ukuran' => 'Ukuran',
+            'nomor_pk' => 'No Cont',
+            'keterangan' => 'Ket',
+            'jenis_pk' => 'Jenis PK',
+            'ukuran' => 'Uk',
+            'segelmanifest' => 'Segelmanifest',
+            'segelfisik' => 'Segelfisik',
         ];
     }
 

@@ -19,13 +19,13 @@ use yii\helpers\ArrayHelper;
             <div class="row">
                 <div class="col-sm-6">
                     
-                    <?= $form->field($model, 'kepada_sp')->textArea(['maxlength' => 250, 'placeholder' => $model->getAttributeLabel('Tujuan SP')]) ?>
+                    <?= $form->field($model, 'kepada_sp')->textArea(['maxlength' => 250, 'placeholder' => $model->getAttributeLabel('Tujuan Surat Pengantar exp: Kepala Kantor')]) ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
                     
-                    <?= $form->field($model, 'no_sp')->textInput(['maxlength' => 150, 'placeholder' => $model->getAttributeLabel('NomorSurat Pengantar exp : SP--Nomor/KPU.01/BD.0104/2016 ')]) ?>
+                    <?= $form->field($model, 'no_sp')->textInput(array('placeholder' => 'exp: SP-xxx/KPU.01/BD.01/2016'),['maxlength' => 150]) ?>
                 </div>
             </div>
             <div class="row">                

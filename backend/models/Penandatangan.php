@@ -43,7 +43,7 @@ class Penandatangan extends \yii\db\ActiveRecord
         return [
             [['jabatan', 'namapejabat', 'nippejabat'], 'required'],
             [['category', 'created_at', 'created_by', 'updated_at', 'updated_by', 'is_status'], 'integer'],
-            [['jabatan', 'namapejabat', 'nippejabat'], 'string', 'max' => 45]
+            [['jabatan', 'namapejabat', 'nippejabat'], 'string', 'max' => 200]
         ];
     }
 

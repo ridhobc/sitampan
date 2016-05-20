@@ -13,16 +13,16 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $year = date('Y');
-$this->title = 'Surat Pengantar';
+$this->title = 'Penerimaan Surat Pengantar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suratmasuk-arsip-index">
-
+    
 
     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
     <div class="container-fluid">
     </div>
-
+    
     <?php
     Modal::begin([
         'header' => '<h4>BCF 1.5</h4>',
@@ -140,7 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
         'panel' => [
             'type' => GridView::TYPE_PRIMARY,
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> BCF 1.5</h3>',
+            'heading' => '<h3 class="panel-title">Klik <i class="glyphicon glyphicon-flag"></i> untuk menerima Surat Pengantar</h3>',
         ],
 // your toolbar can include the additional full export menu
         'toolbar' => [

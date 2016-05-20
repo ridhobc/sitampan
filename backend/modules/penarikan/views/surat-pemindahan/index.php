@@ -50,11 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 return GridView::ROW_COLLAPSED;
             },
             'detail' => function ($model, $key, $index, $column) {
-                $searchModel = new \backend\modules\penarikan\models\Bcf15Search(['skep_penetapan_bcf15_id' => $model->id]);
-                $searchModel->skep_penetapan_bcf15_id = $model->id;
+                $searchModel = new \backend\modules\penarikan\models\Bcf15Search(['bcf15_surat_pemindahan_id' => $model->id]);
+                $searchModel->bcf15_surat_pemindahan_id = $model->id;
                 $dataProvider = $searchModel->search(YII::$app->request->queryParams);
 
-                return YII::$app->controller->renderPartial('_detail-penetapan', [
+                return YII::$app->controller->renderPartial('_detail-bcf15', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
                         ]);

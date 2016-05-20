@@ -101,6 +101,24 @@ class PenandatanganController extends Controller
             ]);
         }
     }
+    
+    public function actionCreateseksipenetapan()
+    {
+        
+        $model = new Penandatangan();
+        if ($model->load(Yii::$app->request->post())) {            
+            $model->category='2';
+            $model->save();         
+            return $this->redirect(['penandatangan/index']);
+        } else {
+            return $this->render('createseksipenetapan', [
+                'model' => $model,
+            ]);
+        }
+    }
+    
+   
+
 
     /**
      * Updates an existing Penandatangan model.
