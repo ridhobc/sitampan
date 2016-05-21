@@ -95,9 +95,10 @@ class UserController extends Controller {
                 $m = substr($nip, 5, 2);
                 $d = substr($nip, 8, 2);
                 if (empty($model->password)) {
-                    $password = $model->password;
-                } else {
                     $password = '123456'; //default password
+                } else {
+                    
+                    $password = $model->password;
                 }
                
                 $model->password_hash = Yii::$app->security->generatePasswordHash($password);

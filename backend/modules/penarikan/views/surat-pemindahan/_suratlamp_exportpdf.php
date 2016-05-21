@@ -54,27 +54,18 @@ return $bulan;
         <div class="col-sm-12">
 
             <div class="col-sm-6 right-side">
-                <table class="table table-mailbox table-row " style="font-size: 12px">
+                <table class="table table-mailbox table-row " border="0" style="font-size: 12px">
                     <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </td>
+                        <td></td>
                         <td colspan="2">Lampiran Surat Kepala <span style="text-transform: capitalize"><?php echo $modelIdentitas['kppbc']; ?></span></td>
                                               
                     </tr>
                     <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td width="10%">Nomor</td><td width="20%">: S-&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  <?php echo $modelskep->no_surat ?>/WBC.10/KPP.MP.01/2016</td>
+                        <td></td>
+                        <td width="5%">Nomor</td><td width="30%">: S-&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  <?php echo $modelskep->no_surat ?>/WBC.10/KPP.MP.01/2016</td>
                     </tr>
                     <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </td>
+                        <td></td>
                         <td>Tanggal</td><td>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <?php $tgl=  explode("-",$modelskep->tgl_surat); $tahun=$tgl[0];$bulan = bulan(date($tgl[1]));  echo $bulan ?> <?php echo $tahun ?></td>
                     </tr>
                     <tr>
@@ -86,9 +77,6 @@ return $bulan;
                     <tr>
                         <td colspan="3" align="left"><h5 >TAHUN <?php echo date('Y'); ?></h5></td>
                     </tr>
-                    
-
-                    
                 </table>
             </div>
         </div>

@@ -23,7 +23,7 @@ $srtpmdh = \backend\models\Bcf15SuratPemindahan::find()->where(['status_surat' =
             <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Surat Pemindahan <span class="label label-warning"> ' . ($srtpmdh) . ' </span> '), ['/penarikan/surat-pemindahan/index']) ?>
         </li>
         <li>		
-            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Masih di TPS <span class="label label-warning"> ' . ($srtpmdh) . ' </span> '), ['/penarikan/surat-pemindahan/index']) ?>
+            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Masih di TPS <span class="label label-warning"> ' . ($srtpmdh) . ' </span> '), ['/penarikan/surat-pemindahan/still-in-tps']) ?>
         </li>
         
         <li>

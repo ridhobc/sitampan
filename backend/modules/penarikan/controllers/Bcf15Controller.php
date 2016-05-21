@@ -32,7 +32,7 @@ class Bcf15Controller extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new Bcf15Search();
+        $searchModel = new Bcf15Search([]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

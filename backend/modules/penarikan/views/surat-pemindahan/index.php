@@ -50,13 +50,45 @@ $this->params['breadcrumbs'][] = $this->title;
                 return GridView::ROW_COLLAPSED;
             },
             'detail' => function ($model, $key, $index, $column) {
-                $searchModel = new \backend\modules\penarikan\models\Bcf15Search(['bcf15_surat_pemindahan_id' => $model->id]);
-                $searchModel->bcf15_surat_pemindahan_id = $model->id;
-                $dataProvider = $searchModel->search(YII::$app->request->queryParams);
+                $modelbcf15 = (new \yii\db\Query())
+                        ->select(['tahun', 'bcf15no', 'bcf15tgl', 'penandatangan_id', 'bcf15pos', 'bc11no', 'bc11tgl', 'bc11pos', 'bc11subpos', 'nobl',
+                            'tglbl', 'tgl_timbun', 'nama_sarkut', 'jumlah_brg', 'satuan_brg', 'uraian_brg', 'berat_brg', 'total_cont', 'consignee',
+                            'alamat_consignee', 'kota_consignee', 'tpp_id', 'tps_id', 'ts.id', 'namatps', 'alamattps', 'namatpp', 'alamattpp',
+                            'no_sp', 'tgl_sp', 'nama_sarkut'])
+                        ->from('bcf15 bd')
+                        ->join('JOIN', 'bcf15_detail ts', 'bd.id = ts.bcf15_id')
+                        ->join('JOIN', 'tps tp', 'tp.id = ts.tps_id')
+                        ->join('JOIN', 'tpp tk', 'tk.id = ts.tpp_id')
+                        ->where(['bcf15_surat_pemindahan_id' => $model->id])
+                        ->orderBy('bd.id', 'bcf15pos')
+                        ->all();
+
+                $modelcont = (new \yii\db\Query())
+                        ->select(['tahun', 'bcf15no', 'bcf15pos', 'bc11no', 'bc11tgl', 'bc11pos', 'nomor_pk', 'nobl',
+                            'uc.ukuran', 'type', 'namatps', 'alamattps', 'namatpp', 'alamattpp',
+                            ])
+                        ->from('bcf15 bd')
+                        ->join('JOIN', 'bcf15_detail ts', 'bd.id = ts.bcf15_id')
+                        ->join('JOIN', 'bcf15_detail_cont dc', 'ts.id = dc.bcf15_detail_id')       
+                        ->join('JOIN', 'type_cont ty', 'ty.id = dc.jenis_pk')  
+                        ->join('JOIN', 'ukuran_cont uc', 'uc.id = dc.ukuran')  
+                        ->join('JOIN', 'tps tp', 'tp.id = ts.tps_id')
+                        ->join('JOIN', 'tpp tk', 'tk.id = ts.tpp_id')
+                        ->where(['bcf15_surat_pemindahan_id' => $model->id])
+                       ->all();
+
+                $modelskep = (new \yii\db\Query())
+                        ->select(['skep_no', 'skep_tgl', 'skep_penetapan_bcf15_id'])
+                        ->from('skep_penetapan_bcf15 bd')
+                        ->join('JOIN', 'bcf15 ts', 'bd.id = ts.skep_penetapan_bcf15_id')                       
+                        ->where(['bcf15_surat_pemindahan_id' => $model->id])
+                        ->all();
+                             
 
                 return YII::$app->controller->renderPartial('_detail-bcf15', [
-                            'searchModel' => $searchModel,
-                            'dataProvider' => $dataProvider,
+                            'modelbcf15' => $modelbcf15,
+                            'modelskep' => $modelskep,
+                            'modelcont' => $modelcont,
                         ]);
             },
         ],

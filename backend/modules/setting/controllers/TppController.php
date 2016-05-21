@@ -33,6 +33,7 @@ class TppController extends Controller
     public function actionIndex()
     {
         $searchModel = new TppSearch();
+      	
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

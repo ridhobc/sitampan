@@ -90,6 +90,25 @@ use yii\bootstrap\Modal;
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
+                                <?= $form->field($model, 'no_nd_kasipab')->textInput(['maxlength' => 64]) ?>
+                            </div>
+                            <div class="col-sm-6">
+                                <?=
+                                $form->field($model, 'tgl_nd_kasipab')->widget(\kartik\widgets\DatePicker::className(), [
+                                    'options' => ['placeholder' => 'Tanggal ND..'],
+                                    'language' => 'id',
+                                    'pluginOptions' => [
+                                        'format' => 'yyyy-mm-dd',
+                                        'autoclose' => true,
+                                        'todayHighlight' => true,
+                                        'todayBtn' => true,
+                                    ]
+                                ])
+                                ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <?= $form->field($model, 'nd_dari_kasipab')->textArea(['maxlength' => 255]) ?>
                             </div>
 
