@@ -42,10 +42,10 @@ class Bcf15Penyelesaian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nomor_permohonan', 'tgl_permohonan', 'hal_permohonan',  'nama_pemohon', 'alamat_pemohon', 'kota_pemohon'], 'required'],
+            [['nomor_permohonan', 'tgl_permohonan', 'hal_permohonan',  'nama_pemohon', 'alamat_pemohon', 'kota_pemohon','bcf15_detail_id'], 'required'],
             [['tgl_permohonan', 'tgl_masuk', 'tgl_dikembalikan', 'tgl_terima_lengkap'], 'safe'],
             [['hal_permohonan', 'ur_kekurangan'], 'string'],
-            [['petugas_penerima_dok'], 'integer'],
+            [['petugas_penerima_dok','bcf15_detail_id'], 'integer'],
             [['nomor_permohonan', 'kota_pemohon', 'no_telp_petugas_ppjk', 'email_pemohon'], 'string', 'max' => 45],
             ['email_pemohon','email'],
             
@@ -79,6 +79,21 @@ class Bcf15Penyelesaian extends \yii\db\ActiveRecord
             'status_lengkap' => 'Kelengkapan Syarat',
             'status_penyelesaian' => 'Status Penyelesaian',
             'ur_kekurangan' => 'Ur Kekurangan',
+            'bcf15_detail_id' => 'No Pos BCF 1.5',
         ];
+    }
+    
+      public function getBcf15Detail()
+    {
+        return $this->hasOne(Bcf15Detail::className(), ['id' => 'bcf15_detail_id']);
+    }
+    
+     public function getViewBcf()
+    {
+        return $this->hasOne(ViewBcf15::className(), ['id' => 'bcf15_detail_id']);
+    }
+    
+     public function getPetugasTerima() {
+        return $this->hasOne(User::className(), ['id' => 'petugas_penerima_dok']);
     }
 }

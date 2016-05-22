@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $year = date('Y');
-$this->title = 'Permohonan Penyelesaian BCF 1.5';
+$this->title = 'Pmohonan Kurang Syarat';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suratmasuk-arsip-index">
@@ -24,7 +24,25 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php
-    
+    Modal::begin([
+        'header' => '<h4>BCF 1.5</h4>',
+        'id' => 'modal',
+        'size' => 'modal-lg',
+        'options' => [
+            'id' => 'modal',
+            'tabindex' => false // important for Select2 to work properly
+            ],
+    ]);
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+
+    Modal::begin([
+        'header' => '<h4>Buat Surat Pengantar</h4>',
+        'id' => 'myModal',
+        'size' => 'modal-lg',
+    ]);
+    echo "<div id='modalContent'></div>";
+    Modal::end();
     $pejabat = \yii\helpers\ArrayHelper::map(
                     \backend\models\Penandatangan::find()->all(), 'id', 'jabatan', 'namapejabat');
     $status = \yii\helpers\ArrayHelper::map(
@@ -73,13 +91,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $status[$data->status_penyelesaian];
             }
         ],
-                
     
         [
-            'header'=>'view',
+            'header'=>'Proses',
             'format' => 'raw',
             'value' => function ($data) {
-                return Html::a("<i class='fa fa-eye'></i>", ['view', 'id' => $data->id]);
+                return Html::a("<i class='fa fa-edit fa-2x'></i>", ['frontdesk/update', 'id' => $data->id]);
             },
         ],            
     ];
@@ -115,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['content' =>
 //                Html::button('<i class="glyphicon glyphicon-plus"></i>  Create BCF 1.5', ['value' => Url::to('index.php?r=bcf15/bcf15/skep_create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
 //                                Html::button('<i class="glyphicon glyphicon-plus"></i>  Buat Logbook', ['value' => Url::to('index.php?r=logbook/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
-                Html::a('<i class="glyphicon glyphicon-plus"></i>  Rekam Permohonan', ['frontdesk/create'], ['class' => 'btn btn-success']) . ' ' .
+//                Html::a('<i class="glyphicon glyphicon-plus"></i>  Rekam Permohonan', ['frontdesk/create'], ['class' => 'btn btn-success']) . ' ' .
                 Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], [
                     'data-pjax' => 0,
                     'class' => 'btn btn-info',

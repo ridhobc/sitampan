@@ -45,11 +45,18 @@ $gridColumns = [
             return $status[$data->status];
         }
     ],
+    
     [
         'format' => 'raw',
         'header' => 'Ubah',
         'value' => function ($data) {
-            return Html::a(Html::encode(""), ['update', 'id' => $data->id], ['class' => 'fa fa-cog fa-2x']);
+
+            if ($data->status == '10') {
+                return Html::a(Html::encode(""), ['update', 'id' => $data->id], ['class' => 'fa fa-cog fa-2x']);
+            } else {
+                
+                return "<i class='fa fa-minus  fa-2x text-danger text-center '></i>";
+            }
         },
     ],
     [
@@ -59,20 +66,20 @@ $gridColumns = [
 
             if ($data->status == '10') {
                 $request = Yii::$app->request;
-                return Html::a("<i class='fa fa-check fa-2x text-info text-center'></i>", ['bcf15/tbhdetailkep', 'idsk' => $request->get('id'), 'id' => $data->id], [
+                return Html::a("<i class='fa fa-check fa-2x text-info text-center'></i>", ['banned', 'id' => $data->id], [
                             'class' => '',
                             'data' => [
-                                'confirm' => 'Tambahkan bcf15 nomor : ' . $data->username . ' Ke Skep',
+                                'confirm' => 'User  : ' . $data->name . ' akan dibanned, lanjutkan?',
                                 'method' => 'post',
                                 ],
                         ]);
             } else {
                 $request = Yii::$app->request;
-                return Html::a("<i class='fa fa-close  fa-2x text-success text-center '></i>", ['surat-pemindahan/btllampsrt', 'idsk' => $request->get('id'), 'id' => $data->id], [
+                return Html::a("<i class='fa fa-ban  fa-2x text-danger text-center '></i>", ['unbanned', 'id' => $data->id], [
                             'class' => '',
                             'data' => [
 
-                                'confirm' => 'Hapus bcf15 nomor : ' . $data->username . ' dari Lampiran',
+                                'confirm' => 'User  : ' . $data->name . ' akan diaktifkan kembali, lanjutkan?',
                                 'method' => 'post',
                                 ],
                         ]);
@@ -110,8 +117,8 @@ echo GridView::widget([
 
         $fullExportMenu,
         ['content' =>
-            Html::button('<i class="glyphicon glyphicon-plus"></i>  Create User', ['value' => Url::to('index.php?r=user/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
-//            Html::a('Create Auth Item Child', ['create'], ['class' => 'btn btn-success']). ' ' .
+//            Html::button('<i class="glyphicon glyphicon-plus"></i>  Create User', ['value' => Url::to('index.php?r=user/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) . ' ' .
+            Html::a('<i class="glyphicon glyphicon-plus"></i> Create User', ['create'], ['class' => 'btn btn-success']) . ' ' .
             Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], [
                 'data-pjax' => 0,
                 'class' => 'btn btn-info',

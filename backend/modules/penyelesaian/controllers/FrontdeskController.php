@@ -43,6 +43,36 @@ class FrontdeskController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * Lists all Bcf15Penyelesaian models.
+     * @return mixed
+     */
+    public function actionLengkap()
+    {
+        $searchModel = new Bcf15PenyelesaianSearch(['status_penyelesaian'=>'1']);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('lengkap', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all Bcf15Penyelesaian models.
+     * @return mixed
+     */
+    public function actionLengkapTdk()
+    {
+        $searchModel = new Bcf15PenyelesaianSearch(['status_penyelesaian'=>'2']);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('lengkap-tdk', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Bcf15Penyelesaian model.
@@ -51,8 +81,15 @@ class FrontdeskController extends Controller
      */
     public function actionView($id)
     {
+         $model = $this->findModel($id);
+         
+        $searchModel = new \backend\modules\penyelesaian\models\Bcf15DetailSearch(['id'=>$model->bcf15_detail_id]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+             'searchModel' => $searchModel,
+             'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -77,6 +114,7 @@ class FrontdeskController extends Controller
                 $model->status_penyelesaian='2';
             }
             $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -95,8 +133,25 @@ class FrontdeskController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+         if ($model->load(Yii::$app->request->post())){
+            
+            if($model->status_lengkap=='1'){
+                $model->status_penyelesaian='1';
+            }  
+            else                
+            {
+                $model->status_penyelesaian='2';
+            }
+            $model->save();
+            if($model->status_penyelesaian=='1'){
+                \Yii::$app->getSession()->setFlash('warning', 'Permohonan telah lengkap ');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            else{
+                \Yii::$app->getSession()->setFlash('danger', 'Permohonan belum lengkap ');
+                return $this->redirect(['lengkap-tdk']);
+            }
+            
         } else {
             return $this->render('update', [
                 'model' => $model,

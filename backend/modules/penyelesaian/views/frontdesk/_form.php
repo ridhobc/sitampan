@@ -55,6 +55,26 @@ use yii\bootstrap\Modal;
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-6">
+                                <?php
+                                //= $form->field($model, 'training_id')->textInput()
+                                $jabatan = \yii\helpers\ArrayHelper::map(
+                                                backend\models\ViewBcf15::find()->where(['status_bcf15_detail' => [2,3,4,5]])->all(), 'id', 'bcf15pos', 'bcf15no');
+                                echo $form->field($model, 'bcf15_detail_id')->widget(\kartik\widgets\Select2::classname(), [
+                                    'data' => $jabatan,
+                                    'options' => [
+                                        'placeholder' => 'Pilih Penandatangan...',
+                                    ],
+                                    'pluginOptions' => [
+                                        'allowClear' => true,
+                                        ],
+                                ]);
+                                ?>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6">
                                 <?= $form->field($model, 'hal_permohonan')->textArea(array('placeholder' => 'Perihal permohonan'), ['maxlength' => 255]) ?>
                             </div>

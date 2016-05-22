@@ -2,11 +2,9 @@
 
  use yii\helpers\Html; ?>
 <?php
-$bcfbaru = \backend\models\Bcf15::find()->where(['status_bcf15' => ['3']])->count();
-$bcterima = backend\models\SkepPenetapanBcf15::find()->where(['status_skep' => ['konsep']])->count();
-$tpp = \backend\models\Bcf15Detail::find()->where(['tpp_id' => ['1'],'status_bcf15_detail' => ['2']])->count();
-$srtpmdh = \backend\models\Bcf15SuratPemindahan::find()->where(['status_surat' => ['konsep']])->count();
-$stilltps = \backend\models\Bcf15Detail::find()->where(['masuk_tpp' => ['0'],'status_bcf15_detail' => ['2']])->count();
+$kurangsyarat = backend\models\Bcf15Penyelesaian::find()->where(['status_penyelesaian' => ['2']])->count();
+$proseslengkap = backend\models\Bcf15Penyelesaian::find()->where(['status_penyelesaian' => ['1']])->count();
+
 ?>
 <li class="treeview active">
     <?= Html::a('<i class="fa fa-truck"></i> <span>' . ('Penyelesaian') . '</span> <i class="fa fa-angle-left pull-right"></i>', ['/default/index']) ?>
@@ -18,10 +16,10 @@ $stilltps = \backend\models\Bcf15Detail::find()->where(['masuk_tpp' => ['0'],'st
             <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'List Permohonan '), ['/penyelesaian/frontdesk/index']) ?>
         </li>
         <li>		
-            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Kurang Syarat'), ['/penarikan/bcf15/index']) ?>
+            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Kurang Syarat <span class="label label-warning"> ' . ($kurangsyarat) . ' </span> '), ['/penyelesaian/frontdesk/lengkap-tdk']) ?>
         </li>
         <li>		
-            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Lengkap'), ['/penarikan/bcf15/index']) ?>
+            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Lengkap <span class="label label-warning"> ' . ($proseslengkap) . ' </span> '), ['/penyelesaian/frontdesk/lengkap']) ?>
         </li>
         
                  

@@ -107,7 +107,7 @@ class UserController extends Controller {
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                return $this->renderAjax('create', [
+                return $this->render('create', [
                             'model' => $model,
                 ]);
             }
@@ -168,6 +168,22 @@ class UserController extends Controller {
         } else {
             throw new ForbiddenHttpException;
         }
+    }
+    
+    public function actionBanned($id) {
+        $model = User::findOne($id);       
+        $model->status = 0;       
+        $model->save();
+        \Yii::$app->getSession()->setFlash('success', 'User atas nama  '. $model->name .' telah dibanned!');
+        return $this->redirect(['index']);
+    }
+    
+    public function actionUnbanned($id) {
+        $model = User::findOne($id);       
+        $model->status = 10;       
+        $model->save();
+        \Yii::$app->getSession()->setFlash('success', 'User atas nama  '. $model->name .' telah diaktifkan!');
+        return $this->redirect(['index']);
     }
 
 //    public function actionDelete() {

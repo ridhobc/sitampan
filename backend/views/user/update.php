@@ -101,36 +101,13 @@ $this->params['breadcrumbs'][] = 'Update';
 
     </div>
     <div class="row">
-        <div class="col-md-4">            
-            <?php
-            $agama = [
-                '1' => 'Islam',
-                '2' => 'Kristen',
-                '3' => 'Kristen Protestan',
-                '4' => 'Hindu',
-                '5' => 'Budha',
-                '6' => 'Lainnya'
-            ];
-            ?>
-            <?=
-            $form->field($model, 'religion_id')->widget(\kartik\widgets\Select2::className(), [
-                'data' => $agama,
-                'options' => [
-                    'placeholder' => 'Pilih Agama',
-                ],
-                'pluginOptions' => [
-                    'allowClear' => true,
-                ],
-            ]);
-            ?>
-
-        </div>
+        
         <div class="col-md-3">
             <?php
-            $level = [
+           $level = [
                 'admin' => 'administrator',
-                'admin-sm' => 'admin surat masuk',
-                'user' => 'user biasa'
+                'manifest' => 'manifest',
+                'pabean' => 'pabean',
             ];
 
             echo $form->field($model, 'role')->widget(\kartik\widgets\Select2::className(), [

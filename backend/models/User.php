@@ -46,7 +46,7 @@ class User extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['username', 'auth_key',  'religion_id','nip','name','email'], 'required', 'message' => 'Tidak boleh kosong'],
+            [['username', 'auth_key',  'nip','name','email'], 'required', 'message' => 'Tidak boleh kosong'],
             [['gender', 'iddisposisi','religion_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['birthday'], 'safe'],
             [['email'], 'filter','filter'=>'trim'],
