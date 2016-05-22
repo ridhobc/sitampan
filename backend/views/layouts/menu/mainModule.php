@@ -79,6 +79,10 @@ $ProfileLink = ['/employee/emp-master/view', 'id' => $empInfo->id];
 	?>
 	    <li><?= Html::a('<i class="fa fa-truck"></i> <span>'.Yii::t('app', 'Penarikan BCF 1.5').'</span>', ['/penarikan/default/index']);?></li>
 	<?php }
+        if(Yii::$app->user->can('level-admin') || Yii::$app->user->can('level-admin-sm') || Yii::$app->user->can('level-user')) {
+	?>
+	    <li><?= Html::a('<i class="fa fa-file-text"></i> <span>'.Yii::t('app', 'Penyelesaian BCF 1.5').'</span>', ['/penyelesaian/default/index']);?></li>
+	<?php }
 	      ?>
         </ul>
 

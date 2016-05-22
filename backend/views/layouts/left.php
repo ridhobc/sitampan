@@ -72,6 +72,8 @@ $ProfileLink = ['/employee/emp-master/view', 'id' => $empInfo->id];
 		 echo $this->render('menu/setting');
             else if(($this->context->module->id == 'penarikan') )
 		 echo $this->render('menu/penarikan');
+            else if(($this->context->module->id == 'penyelesaian') )
+		 echo $this->render('menu/penyelesaian');
             else if(get_class($this->context) == 'backend\controllers\PspController' || get_class($this->context) == 'backend\controllers\PspdetailController' || get_class($this->context) == 'backend\controllers\PspstatusController'  )
 		 echo $this->render('menu/psp');
 	    else if($this->context->module->id == 'report' || get_class($this->context) == 'app\controllers\LoginDetailsController') 
