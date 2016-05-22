@@ -142,6 +142,7 @@ return [
         'bcf15' => 'backend\modules\bcf15\Module',
         'setting' => 'backend\modules\setting\settingModule',
         'penarikan' => 'backend\modules\penarikan\penarikanModule',
+        'penyelesaian' => 'backend\modules\penyelesaian\penyelesaianModule',
         
        
         
