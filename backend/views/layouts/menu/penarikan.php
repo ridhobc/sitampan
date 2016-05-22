@@ -24,7 +24,7 @@ $stilltps = \backend\models\Bcf15Detail::find()->where(['masuk_tpp' => ['0'],'st
             <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Surat Pemindahan <span class="label label-warning"> ' . ($srtpmdh) . ' </span> '), ['/penarikan/surat-pemindahan/index']) ?>
         </li>
         <li>		
-            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Masih di TPS <span class="label label-warning"> ' . ($stilltps) . ' </span> '), ['/penarikan/surat-pemindahan/still-in-tps']) ?>
+            <?= Html::a('<i class="fa fa-angle-double-right"></i> ' . Yii::t('app', 'Masih di TPS <span class="label label-warning"> ' . ($stilltps) . ' </span> '), ['/penarikan/hanggar/still-in-tps']) ?>
         </li>
         
         <li>
