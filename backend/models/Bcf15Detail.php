@@ -70,10 +70,10 @@ class Bcf15Detail extends \yii\db\ActiveRecord
                 ,  'tps_id','tpp_id','nobl','tglbl','tgl_timbun','bcf15pos'], 'required'],
             
             [['bcf15_id',  'tpp_id', 'tps_id','status_bcf15_detail'], 'integer'],
-            [['bc11tgl','created_at','updated_at'], 'safe'],
+            [['bc11tgl','created_at','updated_at','ba_tgl'], 'safe'],
             [['bc11no', 'nama_sarkut', 'jumlah_brg', 'uraian_brg'], 'string', 'max' => 200],
             [['consignee', 'alamat_consignee', 'kota_consignee', 'notify', 'alamat_notify', 'kota_notify','total_cont'], 'string', 'max' => 200],
-            [['berat_brg','bcf15pos'], 'string', 'max' => 20],
+            [['berat_brg','bcf15pos','ba_no'], 'string', 'max' => 20],
             [['bc11pos', 'bc11subpos','satuan_brg'], 'string', 'max' => 4],
             [['created_by', 'updated_by'], 'integer'],
             
