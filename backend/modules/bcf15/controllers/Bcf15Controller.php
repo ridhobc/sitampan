@@ -4,6 +4,7 @@ namespace backend\modules\bcf15\controllers;
 
 use Yii;
 use backend\models\Bcf15;
+use backend\models\Bcf15Detail;
 use backend\modules\bcf15\models\Bcf15Search;
 use backend\modules\setting\models\IdentitasKantor;
 use yii\web\Controller;
@@ -319,11 +320,24 @@ class Bcf15Controller extends Controller {
      * @return Ridwan Nento
      */
     public function actionKirim($id) {
+        
+        
         $model = Bcf15::findOne($id);
         $model->status_bcf15 = '3'; 
         $model->nama_kirim_sp =  \Yii::$app->user->identity->name;  
         $model->tgl_kirim_sp = date('Y-m-d H:i:s');
         $model->save();
+        
+        $modeldetail = Bcf15Detail::findAll(['bcf15_id'=>$id]); 
+        foreach ($modeldetail as $modeldetails){
+            
+        $modeldetails->status_bcf15_detail = '2';
+        $modeldetails->save();
+        
+        }
+        
+        
+        
         \Yii::$app->getSession()->setFlash('danger', 'SP Nomor '. $model->no_sp .' telah dikirim!');
         return $this->redirect(['surat-pengantar']);
     }

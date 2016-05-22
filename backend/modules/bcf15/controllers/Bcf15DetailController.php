@@ -84,7 +84,8 @@ class Bcf15DetailController extends Controller {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     $modelBcf15Detail->bcf15_id = $id;
-                    
+                    $modelBcf15Detail->masuk_tpp = 0;
+                    $modelBcf15Detail->status_bcf15_detail = 1;
                     if ($flag = $modelBcf15Detail->save()) {
                         foreach ($modelBcf15DetailCont as $modelBcf15DetailContS) {
                             $modelBcf15DetailContS->bcf15_detail_id = $modelBcf15Detail->id;

@@ -18,7 +18,7 @@ class Bcf15DetailSearch extends Bcf15Detail
     public function rules()
     {
         return [
-            [['id', 'bcf15_id', 'satuan_brg', 'tpp_id', 'tps_id'], 'integer'],
+            [['id', 'bcf15_id', 'satuan_brg', 'tpp_id', 'tps_id','status_bcf15_detail'], 'integer'],
             [['bcf15pos','bc11no', 'bc11tgl', 'bc11pos', 'bc11subpos','nobl','tglbl', 'nama_sarkut', 'jumlah_brg', 'uraian_brg', 'berat_brg', 'consignee', 'alamat_consignee', 'kota_consignee', 'notify', 'alamat_notify', 'kota_notify'], 'safe'],
         ];
     }
@@ -62,6 +62,7 @@ class Bcf15DetailSearch extends Bcf15Detail
             'satuan_brg' => $this->satuan_brg,
             'tpp_id' => $this->tpp_id,
             'tps_id' => $this->tps_id,
+            'status_bcf15_detail' => $this->status_bcf15_detail,
         ]);
 
         $query->andFilterWhere(['like', 'bc11no', $this->bc11no])
