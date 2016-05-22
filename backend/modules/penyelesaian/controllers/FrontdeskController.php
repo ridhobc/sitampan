@@ -137,10 +137,12 @@ class FrontdeskController extends Controller
             
             if($model->status_lengkap=='1'){
                 $model->status_penyelesaian='1';
+                $model->tgl_terima_lengkap=date('Y-m-d h:i:s');
             }  
             else                
             {
                 $model->status_penyelesaian='2';
+                $model->tgl_dikembalikan=date('Y-m-d h:i:s');
             }
             $model->save();
             if($model->status_penyelesaian=='1'){
@@ -149,7 +151,7 @@ class FrontdeskController extends Controller
             }
             else{
                 \Yii::$app->getSession()->setFlash('danger', 'Permohonan belum lengkap ');
-                return $this->redirect(['lengkap-tdk']);
+                return $this->redirect(['uraian-kurang', 'id' => $model->id]);
             }
             
         } else {
@@ -158,7 +160,51 @@ class FrontdeskController extends Controller
             ]);
         }
     }
+    
+     /**
+     * Updates an existing Bcf15Penyelesaian model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionUraianKurang($id)
+    {
+        $model = $this->findModel($id);
 
+         if ($model->load(Yii::$app->request->post())){
+           
+            $model->save();
+             \Yii::$app->getSession()->setFlash('warning', 'Permohonan tidak lengkap ');
+                return $this->redirect(['lengkap-tdk']);
+                        
+        } else {
+            return $this->render('uraian-kurang', [
+                'model' => $model,
+            ]);
+        }
+    }
+     /**
+     * Updates an existing Bcf15Penyelesaian model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionProses($id)
+    {
+        $model = $this->findModel($id);
+
+         if ($model->load(Yii::$app->request->post())){
+           
+            $model->save();
+             \Yii::$app->getSession()->setFlash('warning', 'Data berhasil disimpan');
+                return $this->redirect(['lengkap-tdk']);
+                        
+        } else {
+            return $this->render('proses', [
+                'model' => $model,
+            ]);
+        }
+    }
     /**
      * Deletes an existing Bcf15Penyelesaian model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

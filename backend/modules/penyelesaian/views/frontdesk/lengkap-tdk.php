@@ -80,6 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $status[$data->status_lengkap];
             }
         ],
+        'ur_kekurangan',
         [
             'header' => 'Status',
             'value' => function ($data) {
@@ -91,14 +92,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $status[$data->status_penyelesaian];
             }
         ],
-    
         [
-            'header'=>'Proses',
+            'header' => 'Proses',
             'format' => 'raw',
             'value' => function ($data) {
                 return Html::a("<i class='fa fa-edit fa-2x'></i>", ['frontdesk/update', 'id' => $data->id]);
             },
-        ],            
+        ],
+        [
+            'header' => 'view',
+            'format' => 'raw',
+            'value' => function ($data) {
+                return Html::a("<i class='fa fa-eye fa-2x'></i>", ['view', 'id' => $data->id]);
+            },
+            ],
     ];
     $fullExportMenu = ExportMenu::widget([
                 'dataProvider' => $dataProvider,
@@ -123,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
         'panel' => [
             'type' => GridView::TYPE_PRIMARY,
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> BCF 1.5</h3>',
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Surat Permohonan</h3>',
         ],
 // your toolbar can include the additional full export menu
         'toolbar' => [

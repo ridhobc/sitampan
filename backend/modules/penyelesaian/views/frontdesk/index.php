@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $year = date('Y');
-$this->title = 'Permohonan Penyelesaian BCF 1.5';
+$this->title = 'List Permohonan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="suratmasuk-arsip-index">
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'header'=>'view',
             'format' => 'raw',
             'value' => function ($data) {
-                return Html::a("<i class='fa fa-eye'></i>", ['view', 'id' => $data->id]);
+                return Html::a("<i class='fa fa-eye fa-2x'></i>", ['view', 'id' => $data->id]);
             },
         ],            
     ];
@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container']],
         'panel' => [
             'type' => GridView::TYPE_PRIMARY,
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> BCF 1.5</h3>',
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Permohonan</h3>',
         ],
 // your toolbar can include the additional full export menu
         'toolbar' => [

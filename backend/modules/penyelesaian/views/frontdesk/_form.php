@@ -18,7 +18,7 @@ use yii\bootstrap\Modal;
 <div class="box box-default">
     <div class="box-header with-border">
 
-        <?= Html::a('<i class="fa fa-home "></i> Home', ['bcf15/penetapan'], ['class' => 'btn btn-success']) ?>        
+        <?= Html::a('<i class="fa fa-home "></i> Home', ['frontdesk/index'], ['class' => 'btn btn-success']) ?>        
         <?= Html::a('<i class="fa fa-file-word-o "></i> Tanda Terima', ['skep-penetapan-bcf15/export-skep-word', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>        
 
 
