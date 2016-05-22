@@ -379,16 +379,7 @@ class SuratPemindahanController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     
-    //-------------------------------------------HANGGAR TPP--------------------------------------------//
-    public function actionStillInTps() {
-       $searchModel = new \backend\modules\penarikan\models\Bcf15DetailSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('still-in-tps', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                ]);
-    }
+    
     
     protected function findModel($id) {
         if (($model = Bcf15SuratPemindahan::findOne($id)) !== null) {
