@@ -14,15 +14,20 @@ use mdm\autonumber\AutoNumber;
  *
  * @property integer $id
  * @property integer $bcf15_id
+ * @property string $bcf15pos
  * @property string $bc11no
  * @property string $bc11tgl
  * @property string $bc11pos
  * @property string $bc11subpos
+ * @property string $nobl
+ * @property string $tglbl
+ * @property string $tgl_timbun
  * @property string $nama_sarkut
  * @property string $jumlah_brg
- * @property integer $satuan_brg
+ * @property string $satuan_brg
  * @property string $uraian_brg
  * @property string $berat_brg
+ * @property string $total_cont
  * @property string $consignee
  * @property string $alamat_consignee
  * @property string $kota_consignee
@@ -31,6 +36,14 @@ use mdm\autonumber\AutoNumber;
  * @property string $kota_notify
  * @property integer $tpp_id
  * @property integer $tps_id
+ * @property string $created_by
+ * @property string $created_at
+ * @property string $updated_by
+ * @property string $updated_at
+ * @property string $masuk_tpp
+ * @property string $ba_no
+ * @property string $ba_tgl
+ * @property string $status_bcf15_detail
  *
  * @property Bcf15 $bcf15
  * @property Tpp $tpp
@@ -56,7 +69,7 @@ class Bcf15Detail extends \yii\db\ActiveRecord
             [[ 'bc11no', 'bc11tgl', 'bc11pos', 'bc11subpos', 'nama_sarkut', 'jumlah_brg', 'satuan_brg', 'uraian_brg', 'berat_brg', 'consignee', 'alamat_consignee', 'kota_consignee'
                 ,  'tps_id','tpp_id','nobl','tglbl','tgl_timbun','bcf15pos'], 'required'],
             
-            [['bcf15_id',  'tpp_id', 'tps_id'], 'integer'],
+            [['bcf15_id',  'tpp_id', 'tps_id','status_bcf15_detail'], 'integer'],
             [['bc11tgl','created_at','updated_at'], 'safe'],
             [['bc11no', 'nama_sarkut', 'jumlah_brg', 'uraian_brg'], 'string', 'max' => 200],
             [['consignee', 'alamat_consignee', 'kota_consignee', 'notify', 'alamat_notify', 'kota_notify','total_cont'], 'string', 'max' => 200],
@@ -66,11 +79,13 @@ class Bcf15Detail extends \yii\db\ActiveRecord
             
         ];
     }
+    
+   
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+     public function attributeLabels()
     {
         return [
             'id' => 'ID',
@@ -97,10 +112,26 @@ class Bcf15Detail extends \yii\db\ActiveRecord
             'tglbl' => 'Tgl BL/AWB',
             'tgl_timbun' => 'Tgl Timbun',
             'total_cont' => 'Total Cont',
+            'consignee' => 'Consignee',
+            'alamat_consignee' => 'Alamat Consignee',
+            'kota_consignee' => 'Kota Consignee',
+            'notify' => 'Notify',
+            'alamat_notify' => 'Alamat Notify',
+            'kota_notify' => 'Kota Notify',
+            'tpp_id' => 'Tpp ID',
+            'tps_id' => 'Tps ID',
+            'created_by' => 'Created By',
+            'created_at' => 'Created At',
+            'updated_by' => 'Updated By',
+            'updated_at' => 'Updated At',
+            'masuk_tpp' => 'Masuk Tpp',
+            'ba_no' => 'No BA',
+            'ba_tgl' => 'Tanggal',
+            'status_bcf15_detail' => 'Status Bcf15 Detail',
         ];
     }
 
-     /**
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getBcf15()
