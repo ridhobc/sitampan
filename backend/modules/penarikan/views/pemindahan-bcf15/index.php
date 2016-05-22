@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->bcf15->bcf15no;
             },
             'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ArrayHelper::map(backend\modules\penarikan\models\Bcf15::find()->orderBy('id')->asArray()->all(), 'id', 'bcf15no'),
+            'filter' => ArrayHelper::map(backend\modules\penarikan\models\Bcf15::find()->where(['status_bcf15' => [3,4,5,6]])->orderBy('id')->asArray()->all(), 'id', 'bcf15no'),
             'filterWidgetOptions' => [
                 'pluginOptions' => ['allowClear' => true],
             ],
@@ -102,7 +102,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a("<i class='fa fa-close fa-2x'></i>", ['pemindahan-bcf15/edittpp', 'id' => $data->id], [
                                 'class' => '',
                                 'data' => [
-
                                     'method' => 'post',
                                     ],
                             ]);
@@ -111,7 +110,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($data->tpp->namatpp, ['pemindahan-bcf15/edittpp', 'id' => $data->id], [
                                 'class' => '',
                                 'data' => [
-
                                     'confirm' => 'Merubah TPP : ' . $data->tpp->namatpp . ' ?',
                                     'method' => 'post',
                                     ],

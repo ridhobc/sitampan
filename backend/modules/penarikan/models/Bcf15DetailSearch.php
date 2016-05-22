@@ -18,7 +18,7 @@ class Bcf15DetailSearch extends Bcf15Detail
     public function rules()
     {
         return [
-            [['id', 'bcf15_id', 'tpp_id', 'tps_id', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'integer'],
+            [['id', 'bcf15_id', 'tpp_id', 'tps_id', 'created_by', 'created_at', 'updated_by', 'updated_at','status_bcf15_detail'], 'integer'],
             [['bcf15pos', 'bc11no', 'bc11tgl', 'bc11pos', 'bc11subpos', 'nobl', 'tglbl', 'tgl_timbun', 'nama_sarkut', 'jumlah_brg', 'satuan_brg', 'uraian_brg', 'berat_brg', 'total_cont', 'consignee', 'alamat_consignee', 'kota_consignee', 'notify', 'alamat_notify', 'kota_notify'], 'safe'],
         ];
     }
@@ -41,10 +41,25 @@ class Bcf15DetailSearch extends Bcf15Detail
      */
     public function search($params)
     {
-        $query = Bcf15Detail::find();
-
+//        $query = (new \yii\db\Query())
+//                ->select(['bd.id','bcf15_id','bc11tgl','tglbl','bd.id','tgl_timbun','tpp_id',
+//                    'tps_id','bd.created_by','bd.created_at','bd.updated_by','bd.updated_at'
+//                        ,'bcf15pos', 'bc11no', 'bc11tgl', 'bc11pos', 
+//                    'bc11subpos', 'nobl', 'tglbl', 'tgl_timbun', 'nama_sarkut', 
+//                    'jumlah_brg', 'satuan_brg', 'uraian_brg', 'berat_brg', 'total_cont', 
+//                    'consignee', 'alamat_consignee', 'kota_consignee', 'notify', 'alamat_notify', 'kota_notify'
+//                ])
+//                ->from('bcf15_detail bd')
+//                ->join('JOIN', 'bcf15 ts', 'ts.id = bd.bcf15_id')
+//                ->where(['status_bcf15' => [2,3,4,5,6]])
+//                ->all();
+        
+//        $query = Bcf15Detail::find();
+        $query = Bcf15Detail::find()
+		->where(['status_bcf15_detail' => [2]]);
+	
         // add conditions that should always apply here
-
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
      'sort'=> ['defaultOrder' => ['bcf15_id'=>SORT_ASC]]
@@ -71,6 +86,7 @@ class Bcf15DetailSearch extends Bcf15Detail
             'created_at' => $this->created_at,
             'updated_by' => $this->updated_by,
             'updated_at' => $this->updated_at,
+            'status_bcf15_detail' => $this->status_bcf15_detail,
         ]);
 
         $query->andFilterWhere(['like', 'bcf15pos', $this->bcf15pos])
